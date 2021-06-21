@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 
+import { API_URL } from '../Helpers/HelperConstants';
+
 let Registration = () => {
 
   let [userDetails, setUserDetails] = useState({
@@ -18,7 +20,7 @@ let Registration = () => {
 
     let {username, password, password_confirmation} = userDetails;
 
-    axios.post("http://localhost:3001/registrations",{
+    axios.post(`${API_URL}/registrations`,{
       user: {
         username: username,
         password: password,
