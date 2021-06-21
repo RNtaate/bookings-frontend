@@ -1,9 +1,11 @@
 import './App.css';
+import Home from '../components/Home';
 
 function App() {
   return (
     <div className="App">
-      <h1>This is the app component and thanks to Microverse, its gonna be great.</h1>
+      <h1>Norp Massage Parlor</h1>
+      <Home />
     </div>
   );
 }
