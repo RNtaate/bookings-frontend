@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { API_URL } from '../Helpers/HelperConstants';
 
-let Registration = () => {
+let Registration = (props) => {
 
   let [userDetails, setUserDetails] = useState({
     username: '',
@@ -11,6 +11,8 @@ let Registration = () => {
     password_confirmation: '',
     reg_errors: []
   })
+
+  let {showRegForm, toggleShowRegForm} = props;
 
   let handleOnChange = (e) => {
     setUserDetails({...userDetails, [e.target.name]: e.target.value});
@@ -39,6 +41,7 @@ let Registration = () => {
             reg_errors: []
           });
           console.log('Registration response', response);
+          toggleShowRegForm();
         }else {
           setUserDetails({ ...userDetails, reg_errors: [ ...Object.entries(response.data.errors)]})
         }
@@ -50,22 +53,25 @@ let Registration = () => {
   }
 
   return (
-    <div>
+    showRegForm ?(
+    <>
+      <div>
+        <button onClick={toggleShowRegForm}>Cancel</button>
+        <ul>
+          {
+            userDetails.reg_errors.length != 0 ?
+            userDetails.reg_errors.map( error => <li>{error[0]} {error[1]}</li>) : ""
+          }
+        </ul>
 
-      <ul>
-        {
-          userDetails.reg_errors.length != 0 ?
-          userDetails.reg_errors.map( error => <li>{error[0]} {error[1]}</li>) : ""
-        }
-      </ul>
-
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="username" placeholder="Username" value={userDetails.username} onChange={handleOnChange} required/>
-        <input type="password" name="password" placeholder="Password" value={userDetails.password} onChange={handleOnChange} required />
-        <input type="password" name="password_confirmation" placeholder="Password Confirmation" value={userDetails.password_confirmation} onChange={handleOnChange} required />
-        <button type="submit">Sign Up</button>
-      </form>
-    </div>
+        <form onSubmit={handleSubmit}>
+          <input type="text" name="username" placeholder="Username" value={userDetails.username} onChange={handleOnChange} required/>
+          <input type="password" name="password" placeholder="Password" value={userDetails.password} onChange={handleOnChange} required />
+          <input type="password" name="password_confirmation" placeholder="Password Confirmation" value={userDetails.password_confirmation} onChange={handleOnChange} required />
+          <button type="submit">Sign Up</button>
+        </form>
+      </div>
+    </>) : null
   )
 }
 
