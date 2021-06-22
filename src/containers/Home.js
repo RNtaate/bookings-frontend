@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
+import { connect } from 'react-redux';
+
 import Registration from './auth/Registration';
 import Login from './auth/Login';
 
-let Home = () => {
+let Home = (props) => {
 
   let [showRegForm, setShowRegForm] = useState(false);
 
@@ -13,7 +15,9 @@ let Home = () => {
   return (
     <div className="home_div">
       <h1>This is the home component</h1>
-      <button>Login</button>
+      { props.myUserObj.user != null ? 
+        <h2>Username: {props.myUserObj.user.username}</h2> : null
+      }
       <button onClick={toggleShowRegForm}>Sign up</button>
       <div>
         {
@@ -29,4 +33,10 @@ let Home = () => {
   )
 }
 
-export default Home;
+let mapStateToProps = (state) => {
+  return ({
+    myUserObj: state.userReducer
+  })
+}
+
+export default connect(mapStateToProps, null)(Home);
