@@ -8,7 +8,8 @@ let Registration = () => {
   let [userDetails, setUserDetails] = useState({
     username: '',
     password: '',
-    password_confirmation: '',   
+    password_confirmation: '',
+    reg_errors: []
   })
 
   let handleOnChange = (e) => {
@@ -28,19 +29,36 @@ let Registration = () => {
       }
     }, {withCredentials: true} )
     .then( response => {
-      setUserDetails({
-        username: '',
-        password: '',
-        password_confirmation: '',   
-      });
-      console.log('Registration response', response);
+
+      if (response.data.status) {
+        if (response.data.status != 500) {
+          setUserDetails({
+            username: '',
+            password: '',
+            password_confirmation: '',
+            reg_errors: []
+          });
+          console.log('Registration response', response);
+        }else {
+          setUserDetails({ ...userDetails, reg_errors: [ ...Object.entries(response.data.errors)]})
+        }
+      }
     }).catch( error => {
       console.log("Error", error);
+      setUserDetails({ ...userDetails, reg_errors: [["NetWork Error! ", "Something went wrong, please try again."]]})
     })
   }
 
   return (
     <div>
+
+      <ul>
+        {
+          userDetails.reg_errors.length != 0 ?
+          userDetails.reg_errors.map( error => <li>{error[0]} {error[1]}</li>) : ""
+        }
+      </ul>
+
       <form onSubmit={handleSubmit}>
         <input type="text" name="username" placeholder="Username" value={userDetails.username} onChange={handleOnChange} required/>
         <input type="password" name="password" placeholder="Password" value={userDetails.password} onChange={handleOnChange} required />
