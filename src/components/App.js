@@ -1,12 +1,20 @@
 import './App.css';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+
+
 import Home from '../containers/Home';
+import Dashboard from '../containers/Dashboard';
 
 function App() {
   return (
-    <div className="App">
+    <BrowserRouter>
       <h1>Norp Massage Parlor</h1>
-      <Home />
-    </div>
+      <Switch>
+        <Route exact path="/" component={Dashboard}/>
+        <Route exact path="/home" component={Home}/>
+      </Switch>
+    </BrowserRouter>
+
   );
 }
 
