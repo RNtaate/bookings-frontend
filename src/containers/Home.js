@@ -12,6 +12,10 @@ let Home = (props) => {
     setShowRegForm(!showRegForm);
   }
 
+  let redirect = () => {
+    props.history.push("/");
+  }
+
   return (
     <div className="home_div">
       <h1>This is the home component</h1>
@@ -27,7 +31,7 @@ let Home = (props) => {
       </div>
 
       <div>
-        <Login />
+        <Login redirect={redirect}/>
       </div>
     </div>
   )

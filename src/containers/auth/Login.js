@@ -40,6 +40,8 @@ let Login = (props) =>{
           password: '',
           errorMessage: ''
         })
+
+       props.redirect();
       }
       else {
         console.log('Something went wrong dude!');
