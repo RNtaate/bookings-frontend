@@ -12,6 +12,11 @@ let Dashboard = (props) => {
 
   let [showMassageForm, setShowMassageForm] = useState(false);
 
+  let [massageList, setMassageList] = useState({
+    list: [],
+    listMessage: "No Massages yet"
+  })
+
   let redirectToHome = () => {
     props.history.push("/home");
   }
@@ -32,6 +37,17 @@ let Dashboard = (props) => {
     })
   }
 
+  let fetchMassageTypes = () => {
+    axios.get(`${API_URL}/massges`)
+    .then( response => {
+      console.log(response);
+      setMassageList({ ...massageList, list: [ ...response.data]});
+    }).catch(error => {
+      console.log('something went wrong when fetching massage types', error);
+      setMassageList({ ...massageList, listMessage: 'Something went wrong, Please try again later'});
+    })
+  }
+
   useEffect(() => {
     if (myUserObj.loggedInStatus === "NOT LOGGED IN") {
       axios.get(`${API_URL}/logged_in`, {withCredentials: true})
@@ -39,6 +55,7 @@ let Dashboard = (props) => {
         console.log("From the Dashboard: ",response)
         if(response.data.logged_in) {
           setCurrentUser(response.data.user);
+          fetchMassageTypes();
         }
         else {
           console.log('You are not logged in!, so I am taking you to the login/sign up page.');
@@ -65,6 +82,20 @@ let Dashboard = (props) => {
               <button onClick={toggleShowMassageForm}>Create New Massage Type</button>
               : null
             }
+
+            {
+              massageList.list.length != 0 ?
+              massageList.list.map( massage => {
+                return (
+                  <div>
+                    <h2>{massage.name}</h2>
+                    <img src={massage.massage_image ? massage.massage_image.url : ""} />
+                  </div>
+                )
+              })
+              : massageList.listMessage
+            }
+
             {showMassageForm ? <MassageForm handleShowMassageForm={toggleShowMassageForm}/> : null}
           </div>
         )
