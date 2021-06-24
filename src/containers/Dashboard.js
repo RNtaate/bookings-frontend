@@ -1,16 +1,23 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import {API_URL} from './Helpers/HelperConstants';
 import {addUser, removeUser} from '../actions/index';
+import MassageForm from './ModelForms/MassageForm';
 
 let Dashboard = (props) => {
 
   let {myUserObj, setCurrentUser, logoutCurrentUser} = props;
 
+  let [showMassageForm, setShowMassageForm] = useState(false);
+
   let redirectToHome = () => {
     props.history.push("/home");
+  }
+
+  let toggleShowMassageForm = () => {
+    setShowMassageForm(!showMassageForm);
   }
 
   let handleLogout = () => {
@@ -49,9 +56,16 @@ let Dashboard = (props) => {
     <div>
       {
         myUserObj.user ?(
-          <div>
+          <div className="dashboard_div">
+
             <h2>Welcome {myUserObj.user.username}!</h2>
             <button onClick={handleLogout}>Logout</button>
+            {
+              myUserObj.user.id == 1 ?
+              <button onClick={toggleShowMassageForm}>Create New Massage Type</button>
+              : null
+            }
+            {showMassageForm ? <MassageForm handleShowMassageForm={toggleShowMassageForm}/> : null}
           </div>
         )
         : null

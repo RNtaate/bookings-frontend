@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-let MassageForm = () => {
+let MassageForm = (props) => {
 
   let [localMassage, setLocalMassage] = useState({
     name: '',
@@ -10,6 +10,8 @@ let MassageForm = () => {
     duration: 0,
     massage_image: null
   })
+
+  let {handleShowMassageForm} = props;
 
   let handleOnChange = (e) => {
     console.log('You changed something inside of the form input fields');
@@ -58,7 +60,7 @@ let MassageForm = () => {
         <input type="file" multiple={false} accept="image/*" required onChange={handleOnImageChange} />
         <button type="submit">Create Massage Type</button>
       </form>
-      <button>Cancel</button>
+      <button onClick={handleShowMassageForm}>Cancel</button>
     </div>
   )
 }
