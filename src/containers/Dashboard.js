@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import {API_URL} from './Helpers/HelperConstants';
 import {addUser, removeUser} from '../actions/index';
 import MassageForm from './ModelForms/MassageForm';
+import { fetchLoggedInStatus, redirectToHome } from './Helpers/HelperMethods';
 
 let Dashboard = (props) => {
 
@@ -17,10 +18,6 @@ let Dashboard = (props) => {
     listMessage: "No Massages yet"
   })
 
-  let redirectToHome = () => {
-    props.history.push("/home");
-  }
-
   let toggleShowMassageForm = () => {
     setShowMassageForm(!showMassageForm);
   }
@@ -31,14 +28,14 @@ let Dashboard = (props) => {
     .then(response => {
       console.log("I want to log out", response);
       logoutCurrentUser();
-      redirectToHome();
+      redirectToHome(props);
     }).catch( error => {
       console.log("Sorry, couldn't logout smoothly, please try again", error);
     })
   }
 
   let fetchMassageTypes = () => {
-    axios.get(`${API_URL}/massges`)
+    axios.get(`${API_URL}/massages`)
     .then( response => {
       console.log(response);
       setMassageList({ ...massageList, list: [ ...response.data]});
@@ -50,22 +47,10 @@ let Dashboard = (props) => {
 
   useEffect(() => {
     if (myUserObj.loggedInStatus === "NOT LOGGED IN") {
-      axios.get(`${API_URL}/logged_in`, {withCredentials: true})
-      .then( response => {
-        console.log("From the Dashboard: ",response)
-        if(response.data.logged_in) {
-          setCurrentUser(response.data.user);
-          fetchMassageTypes();
-        }
-        else {
-          console.log('You are not logged in!, so I am taking you to the login/sign up page.');
-          redirectToHome();
-        }
-      }).catch( error => {
-        console.log('Something went wrong', error)
-        console.log('So I am kindly going to redirect you to the home page.')
-        redirectToHome();
-      })
+      fetchLoggedInStatus(props, fetchMassageTypes, setCurrentUser);
+    }
+    else{
+      fetchMassageTypes();
     }
   }, []);
 
