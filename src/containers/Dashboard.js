@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import {API_URL} from './Helpers/HelperConstants';
 import {addUser, removeUser} from '../actions/index';
@@ -61,6 +62,7 @@ let Dashboard = (props) => {
           <div className="dashboard_div">
 
             <h2>Welcome {myUserObj.user.username}!</h2>
+            <Link to="/appointments"><p><strong>My Appointments</strong></p></Link>
             <button onClick={handleLogout}>Logout</button>
             {
               myUserObj.user.id == 1 ?
@@ -72,10 +74,12 @@ let Dashboard = (props) => {
               massageList.list.length != 0 ?
               massageList.list.map( massage => {
                 return (
-                  <div>
-                    <h2>{massage.name}</h2>
-                    <img src={massage.massage_image ? massage.massage_image.url : ""} />
-                  </div>
+                  <Link to={`/massage/${massage.id}`} key={massage.id}>
+                    <div>
+                      <h2>{massage.name}</h2>
+                      <img src={massage.massage_image ? massage.massage_image.url : ""} />
+                    </div>
+                  </Link>
                 )
               })
               : massageList.listMessage
