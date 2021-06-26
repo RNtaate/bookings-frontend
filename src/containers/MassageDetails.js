@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+import AppointmentForm from './ModelForms/AppointmentForm';
+
 let MassageDetails = (props) => {
   
   let [localMassage, setLocalMassage] = useState({
     massageData: null,
     errorMessage: "Fetching Data"
   })
+
+  let [showAppForm, setShowAppForm] = useState(false);
+
+  let toggleShowAppForm = () => {
+    setShowAppForm(!showAppForm);
+  }
 
   let fetchSingleMassage = (id=0) => {
     axios.get(`http://localhost:3001/massages/${id}`, {withCredentials: true})
@@ -37,7 +45,14 @@ let MassageDetails = (props) => {
         <p>{localMassage.massageData.description}</p>
         <p>Duration: {localMassage.massageData.duration} minutes</p>
         <p>Price: ${localMassage.massageData.price}</p>
+        <button onClick={toggleShowAppForm}>Book an appointment</button>
       </div>
+
+      {
+        showAppForm ? 
+        <AppointmentForm {...props} massage={localMassage.massageData} handleShowAppForm={toggleShowAppForm}/> : null
+      }
+
     </div>) : <p>{localMassage.errorMessage}</p>
   )
 }
