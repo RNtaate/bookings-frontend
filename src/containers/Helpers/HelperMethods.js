@@ -23,7 +23,7 @@ export let redirectToHome = (props) => {
   props.history.push("/home");
 }
 
-export let fetchLoggedInStatus = (props, funcInResponse, setUserStateFunc) => {
+export let fetchLoggedInStatus = (props, funcInResponse= () => {}, setUserStateFunc) => {
   axios.get(`${API_URL}/logged_in`, {withCredentials: true})
   .then( response => {
     console.log("From the Dashboard: ",response)
