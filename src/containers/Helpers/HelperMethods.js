@@ -6,7 +6,7 @@ export let createDateToday = () => {
   let dateString = [];
   let hold = ""
   dateString.push(`${some.getFullYear()}`);
-  hold = some.getMonth();
+  hold = some.getMonth() + 1;
   hold < 10 ? hold = `0${hold}` : `${hold}`;
   dateString.push(hold);
   
