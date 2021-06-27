@@ -70,6 +70,9 @@ let Dashboard = (props) => {
               : null
             }
 
+            {/**This is the new massage form */}
+            {showMassageForm ? <MassageForm handleShowMassageForm={toggleShowMassageForm} handleFetchMassageTypes={fetchMassageTypes} /> : null}
+
             {
               massageList.list.length != 0 ?
               massageList.list.map( massage => {
@@ -84,8 +87,6 @@ let Dashboard = (props) => {
               })
               : massageList.listMessage
             }
-
-            {showMassageForm ? <MassageForm handleShowMassageForm={toggleShowMassageForm}/> : null}
           </div>
         )
         : null
