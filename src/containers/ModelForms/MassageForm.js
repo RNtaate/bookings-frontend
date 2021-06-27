@@ -39,10 +39,15 @@ let MassageForm = (props) => {
       method: "post",
       url: 'http://localhost:3001/massages',
       data: formData,
-      headers: { "Content-Type": "multipart/form-data"}
+      headers: { "Content-Type": "multipart/form-data"},
+      withCredentials: true
     })
     .then( response => {
       console.log(response);
+      if(response.data.massage){
+        props.handleFetchMassageTypes();
+        props.handleShowMassageForm();
+      }
     }).catch (error => {
       console.log('Something went wrong dude!', error);
     })
