@@ -1,9 +1,16 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
-let  MassageCard = () => {
+let  MassageCard = (props) => {
+
+  let {massageObj: massage} = props;
+
   return (
     <div>
-      <p>This going to be a massage card</p>
+      <Link to={`/massage/${massage.id}`}>
+        <h2>{massage.name}</h2>
+        <img src={massage.massage_image.url}/>
+      </Link>
     </div>
   )
 }

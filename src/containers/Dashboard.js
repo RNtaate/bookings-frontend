@@ -7,6 +7,7 @@ import {API_URL} from './Helpers/HelperConstants';
 import {addUser, removeUser} from '../actions/index';
 import MassageForm from './ModelForms/MassageForm';
 import { fetchLoggedInStatus, redirectToHome } from './Helpers/HelperMethods';
+import MassageCard from '../components/MassageCard';
 
 let Dashboard = (props) => {
 
@@ -16,7 +17,7 @@ let Dashboard = (props) => {
 
   let [massageList, setMassageList] = useState({
     list: [],
-    listMessage: "No Massages yet"
+    listMessage: "Fetching Massage Types ..."
   })
 
   let toggleShowMassageForm = () => {
@@ -77,12 +78,7 @@ let Dashboard = (props) => {
               massageList.list.length != 0 ?
               massageList.list.map( massage => {
                 return (
-                  <Link to={`/massage/${massage.id}`} key={massage.id}>
-                    <div>
-                      <h2>{massage.name}</h2>
-                      <img src={massage.massage_image ? massage.massage_image.url : ""} />
-                    </div>
-                  </Link>
+                  <MassageCard massageObj={massage} key={massage.id}/>
                 )
               })
               : massageList.listMessage
