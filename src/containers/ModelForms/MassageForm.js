@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+import { API_URL } from '../Helpers/HelperConstants';
+
 let MassageForm = (props) => {
 
   let [localMassage, setLocalMassage] = useState({
@@ -37,7 +39,7 @@ let MassageForm = (props) => {
 
     axios({
       method: "post",
-      url: 'http://localhost:3001/massages',
+      url: `${API_URL}/massages`,
       data: formData,
       headers: { "Content-Type": "multipart/form-data"},
       withCredentials: true

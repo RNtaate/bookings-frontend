@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+import { API_URL } from './Helpers/HelperConstants';
+
 import AppointmentForm from './ModelForms/AppointmentForm';
 
 let MassageDetails = (props) => {
@@ -17,7 +19,7 @@ let MassageDetails = (props) => {
   }
 
   let fetchSingleMassage = (id=0) => {
-    axios.get(`http://localhost:3001/massages/${id}`, {withCredentials: true})
+    axios.get(`${API_URL}/massages/${id}`, {withCredentials: true})
     .then(response => {
       console.log(response);
       setLocalMassage({ ...localMassage, massageData: response.data})
