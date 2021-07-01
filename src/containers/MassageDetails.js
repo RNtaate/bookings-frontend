@@ -39,7 +39,7 @@ let MassageDetails = (props) => {
     localMassage.massageData != null ? (
     <div>
       <div>
-        <img src={localMassage.massageData.massage_image.url} />
+        <img src={localMassage.massageData.massage_image.url} style={{width: "500px", height: "auto"}}/>
       </div>
 
       <div>
