@@ -59,9 +59,13 @@ const Login = (props) => {
   );
 };
 
+Login.defaultProps = {
+  redirect: () => {},
+};
+
 Login.propTypes = {
   setCurrentUser: PropTypes.func.isRequired,
-  redirect: PropTypes.func.isRequired,
+  redirect: PropTypes.func,
 };
 
 const mapDispatchToProps = (dispatch) => ({

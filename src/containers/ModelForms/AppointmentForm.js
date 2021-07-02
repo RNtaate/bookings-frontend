@@ -77,12 +77,17 @@ const AppointmentForm = (props) => {
   );
 };
 
+AppointmentForm.defaultProps = {
+  propsObj: {},
+  handleShowAppForm: () => {},
+};
+
 AppointmentForm.propTypes = {
   myUserObj: PropTypes.instanceOf(Object).isRequired,
-  propsObj: PropTypes.instanceOf(Object).isRequired,
+  propsObj: PropTypes.instanceOf(Object),
   massage: PropTypes.instanceOf(Object).isRequired,
   setCurrentUser: PropTypes.func.isRequired,
-  handleShowAppForm: PropTypes.func.isRequired,
+  handleShowAppForm: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({

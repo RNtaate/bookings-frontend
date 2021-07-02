@@ -51,8 +51,8 @@ const Dashboard = (props) => {
     }
   }, []);
 
-  if(myUserObj.user == null) {
-    return (<p>Please wait while we verify your credentials ...</p>)
+  if (myUserObj.user == null) {
+    return (<p>Please wait while we verify your credentials ...</p>);
   }
 
   return (

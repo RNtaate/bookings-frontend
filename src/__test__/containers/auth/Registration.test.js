@@ -7,7 +7,7 @@ import Registration from '../../../containers/auth/Registration';
 it('renders without crashing', () => {
   const myDiv = document.createElement('div');
 
-  ReactDOM.render(<Registration />, myDiv);
+  ReactDOM.render(<Registration showRegForm toggleShowRegForm={() => {}} />, myDiv);
 });
 
 it('renders correctly', () => {
