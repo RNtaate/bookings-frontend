@@ -64,11 +64,11 @@ let Registration = (props) => {
           }
         </ul>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}  >
           <input type="text" name="username" placeholder="Username" value={userDetails.username} onChange={handleOnChange} required/>
           <input type="password" name="password" placeholder="Password" value={userDetails.password} onChange={handleOnChange} required />
           <input type="password" name="password_confirmation" placeholder="Password Confirmation" value={userDetails.password_confirmation} onChange={handleOnChange} required />
-          <button type="submit">Sign Up</button>
+          <button type="submit" data-testid="regFormButton">Sign Up</button>
         </form>
       </div>
     </>) : null

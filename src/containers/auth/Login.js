@@ -61,7 +61,7 @@ let Login = (props) =>{
       <form onSubmit={handleSubmit}>
         <input type="text" name="username" placeholder="Username" value={loginDetails.username} onChange={handleOnchange} />
         <input type="password" name="password" placeholder="Password" value={loginDetails.password} onChange={handleOnchange} />
-        <button type="submit">Login</button>
+        <button type="submit" data-testid="logFormButton">Login</button>
       </form>
     </div>
   )

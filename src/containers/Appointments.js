@@ -32,7 +32,7 @@ let Appointments = () => {
 
   return (
     <div>
-      <h4>YOUR BOOKED APPOINTMENTS</h4>
+      <h4 data-testid='appointments-test-heading'>YOUR BOOKED APPOINTMENTS</h4>
       {
         localAppointments.appsList.length > 0 ?
         <table>

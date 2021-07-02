@@ -67,7 +67,7 @@ let AppointmentForm = (props) => {
         <select name="city" onChange={handleOnChange} value={localApt.city} >
           {cities.map( city => <option key={cities.indexOf(city)}>{city}</option>)}
         </select>
-        <button type="submit">Create Appointment</button>
+        <button type="submit" data-testid="appointmentFormSubmitButton">Create Appointment</button>
       </form>
       <button onClick={handleShowAppForm}>Cancel</button>
     </div>
