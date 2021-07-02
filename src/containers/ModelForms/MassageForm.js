@@ -1,75 +1,97 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
-import { API_URL } from '../Helpers/HelperConstants';
+import API_URL from '../Helpers/HelperConstants';
 
-let MassageForm = (props) => {
-
-  let [localMassage, setLocalMassage] = useState({
+const MassageForm = (props) => {
+  const [localMassage, setLocalMassage] = useState({
     name: '',
     description: '',
     price: 0,
     duration: 0,
-    massage_image: null
-  })
+    massageImage: null,
+    createErrors: [],
+  });
 
-  let {handleShowMassageForm} = props;
+  const { handleShowMassageForm } = props;
 
-  let handleOnChange = (e) => {
-    console.log('You changed something inside of the form input fields');
-    setLocalMassage({ ...localMassage, [e.target.name]: e.target.value});
-  }
+  const handleOnChange = (e) => {
+    setLocalMassage({ ...localMassage, [e.target.name]: e.target.value });
+  };
 
-  let handleOnImageChange = (e) => {
-    setLocalMassage({ ...localMassage, massage_image: e.target.files[0]});
-  }
+  const handleOnImageChange = (e) => {
+    setLocalMassage({ ...localMassage, massageImage: e.target.files[0] });
+  };
 
-  let handleSubmit =  (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('You submitted something');
 
-    let {name, description, price, duration, massage_image} = localMassage;
+    const {
+      name, description, price, duration, massageImage,
+    } = localMassage;
 
     const formData = new FormData();
-    formData.append("name", name);
-    formData.append("description", description);
-    formData.append("price", price);
-    formData.append("duration", duration);
-    formData.append("massage_image", massage_image)
+    formData.append('name', name);
+    formData.append('description', description);
+    formData.append('price', price);
+    formData.append('duration', duration);
+    formData.append('massage_image', massageImage);
 
     axios({
-      method: "post",
+      method: 'post',
       url: `${API_URL}/massages`,
       data: formData,
-      headers: { "Content-Type": "multipart/form-data"},
-      withCredentials: true
+      headers: { 'Content-Type': 'multipart/form-data' },
+      withCredentials: true,
     })
-    .then( response => {
-      console.log(response);
-      if(response.data.massage){
-        props.handleFetchMassageTypes();
-        props.handleShowMassageForm();
-      }
-    }).catch (error => {
-      console.log('Something went wrong dude!', error);
-    })
-
-  }
+      .then((response) => {
+        if (response.data.massage) {
+          props.handleFetchMassageTypes();
+          props.handleShowMassageForm();
+        } else {
+          setLocalMassage(
+            { ...localMassage, createErrors: [...Object.entries(response.data.errors)] },
+          );
+        }
+      }).catch(() => {
+        setLocalMassage({ ...localMassage, createErrors: [['NetWork Error! ', 'Something went wrong, please try again.']] });
+      });
+  };
 
   return (
     <div>
       <h3>New Massage Type</h3>
+
+      <ul>
+        {
+          localMassage.createErrors.length > 0
+            ? localMassage.createErrors.map((error) => (
+              <li key={localMassage.createErrors.indexOf(error)}>
+                {error[0]}
+                {' '}
+                {error[1]}
+              </li>
+            )) : null
+        }
+      </ul>
+
       <form onSubmit={handleSubmit}>
         <input type="text" name="name" placeholder="Name of Massage" required onChange={handleOnChange} value={localMassage.name} />
-        <textarea name="description" placeholder="Massage Description" onChange={handleOnChange} required value={localMassage.description}></textarea>
+        <textarea name="description" placeholder="Massage Description" onChange={handleOnChange} required value={localMassage.description} />
         <input type="number" name="price" placeholder="Price" onChange={handleOnChange} required />
         <input type="number" name="duration" placeholder="Duration in minutes" onChange={handleOnChange} required />
         <input type="file" multiple={false} accept="image/*" required onChange={handleOnImageChange} />
         <button type="submit">Create Massage Type</button>
       </form>
-      <button onClick={handleShowMassageForm}>Cancel</button>
+      <button type="button" onClick={handleShowMassageForm}>Cancel</button>
     </div>
-  )
-}
+  );
+};
+
+MassageForm.propTypes = {
+  handleShowMassageForm: PropTypes.func.isRequired,
+  handleFetchMassageTypes: PropTypes.func.isRequired,
+};
 
 export default MassageForm;

@@ -1,9 +1,9 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 
 import userReducer from './UserReducer';
 
-let allReducers = combineReducers({
-  userReducer: userReducer,
-})
+const allReducers = combineReducers({
+  userReducer,
+});
 
 export default allReducers;

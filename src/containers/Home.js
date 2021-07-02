@@ -1,46 +1,60 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Registration from './auth/Registration';
 import Login from './auth/Login';
 
-let Home = (props) => {
+const Home = (props) => {
+  const { myUserObj } = props;
 
-  let [showRegForm, setShowRegForm] = useState(false);
+  const [showRegForm, setShowRegForm] = useState(false);
 
-  let toggleShowRegForm = () => {
+  const toggleShowRegForm = () => {
     setShowRegForm(!showRegForm);
-  }
+  };
 
-  let redirect = () => {
-    props.history.push("/");
-  }
+  const redirect = () => {
+    props.history.push('/');
+  };
 
   return (
     <div className="home_div">
       <h1>This is the home component</h1>
-      { props.myUserObj.user != null ? 
-        <h2>Username: {props.myUserObj.user.username}</h2> : null
-      }
-      <button onClick={toggleShowRegForm}>Sign up</button>
+      { myUserObj.user != null
+        ? (
+          <h2>
+            Username:
+            {myUserObj.user.username}
+          </h2>
+        ) : null}
+      <button type="button" onClick={toggleShowRegForm}>Sign up</button>
       <div>
         {
-          showRegForm == true ? 
-          <Registration showRegForm={showRegForm} toggleShowRegForm={toggleShowRegForm}/> : null
+          showRegForm === true
+            ? (
+              <Registration
+                showRegForm={showRegForm}
+                toggleShowRegForm={toggleShowRegForm}
+              />
+            ) : null
         }
       </div>
 
       <div>
-        <Login redirect={redirect}/>
+        <Login redirect={redirect} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-let mapStateToProps = (state) => {
-  return ({
-    myUserObj: state.userReducer
-  })
-}
+Home.propTypes = {
+  myUserObj: PropTypes.instanceOf(Object).isRequired,
+  history: PropTypes.instanceOf(Object).isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  myUserObj: state.userReducer,
+});
 
 export default connect(mapStateToProps, null)(Home);

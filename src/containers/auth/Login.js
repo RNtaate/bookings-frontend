@@ -1,58 +1,50 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import {addUser} from '../../actions/index';
-import { API_URL } from '../Helpers/HelperConstants';
+import { addUser } from '../../actions/index';
+import API_URL from '../Helpers/HelperConstants';
 
-let Login = (props) =>{
-
-  let [loginDetails, setLoginDetails] = useState({
+const Login = (props) => {
+  const [loginDetails, setLoginDetails] = useState({
     username: '',
     password: '',
-    errorMessage: ''
-  })
+    errorMessage: '',
+  });
 
-  let handleOnchange = (e) => {
-    setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value});
-  }
+  const handleOnchange = (e) => {
+    setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
+  };
 
-  let handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    let {username, password} = loginDetails;
+    const { username, password } = loginDetails;
 
     axios.post(`${API_URL}/sessions`, {
       user: {
-        username: username,
-        password: password,
-      }
-    }, {withCredentials: true})
-    .then( response => {
+        username,
+        password,
+      },
+    }, { withCredentials: true })
+      .then((response) => {
+        props.setCurrentUser(response.data.user);
+        if (response.data.user) {
+          setLoginDetails({
+            username: '',
+            password: '',
+            errorMessage: '',
+          });
 
-      props.setCurrentUser(response.data.user);
-      if (response.data.user) {
-
-        console.log(response);
-  
-        setLoginDetails({
-          username: '',
-          password: '',
-          errorMessage: ''
-        })
-
-       props.redirect();
-      }
-      else {
-        console.log('Something went wrong dude!');
-        setLoginDetails({ ...loginDetails, errorMessage: 'Username or Password is wrong'})
-      }
-
-    }).catch(error => {
-      console.log('Something is wrong: ', error);
-      setLoginDetails({ ...loginDetails, errorMessage: 'Network Error!, Please try again later'})
-    })
-  }
+          props.redirect();
+        } else {
+          setLoginDetails({ ...loginDetails, errorMessage: 'Username or Password is wrong' });
+        }
+      }).catch(() => {
+        setLoginDetails({ ...loginDetails, errorMessage: 'Network Error!, Please try again later' });
+      });
+  };
 
   return (
     <div>
@@ -64,16 +56,18 @@ let Login = (props) =>{
         <button type="submit" data-testid="logFormButton">Login</button>
       </form>
     </div>
-  )
-}
+  );
+};
 
+Login.propTypes = {
+  setCurrentUser: PropTypes.func.isRequired,
+  redirect: PropTypes.func.isRequired,
+};
 
-let mapDispatchToProps = (dispatch) => {
-  return ({
-    setCurrentUser: (userObj) => {
-      dispatch(addUser(userObj))
-    }
-  })
-}
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentUser: (userObj) => {
+    dispatch(addUser(userObj));
+  },
+});
 
 export default connect(null, mapDispatchToProps)(Login);

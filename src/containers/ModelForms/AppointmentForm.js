@@ -1,61 +1,64 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 import { createDateToday, fetchLoggedInStatus } from '../Helpers/HelperMethods';
 import { addUser } from '../../actions/index';
-import { API_URL } from '../Helpers/HelperConstants';
+import API_URL from '../Helpers/HelperConstants';
 
-let AppointmentForm = (props) => {
+const AppointmentForm = (props) => {
+  const cities = ['Kampala', 'Arua', 'Gayaza', 'New York', 'Dehli', 'Lagos'];
 
-  let cities = ['Kampala', 'Arua', 'Gayaza', 'New York', 'Dehli', 'Lagos'];
+  const {
+    myUserObj, massage, handleShowAppForm, setCurrentUser,
+  } = props;
 
-  let {myUserObj, massage, handleShowAppForm, setCurrentUser} = props 
-
-  let [localApt, setLocalApt] = useState({
-    customer_name: "",
-    massage_type: massage.name,
-    massage_id: massage.id,
+  const [localApt, setLocalApt] = useState({
+    customerName: '',
+    massageType: massage.name,
+    massageId: massage.id,
     date: '',
     city: 'Kampala',
-  })
+  });
 
-  let [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  let handleOnChange = (e) => {
-    setLocalApt({...localApt, customer_name: myUserObj.user.username, [e.target.name]: e.target.value});
-  }
+  const handleOnChange = (e) => {
+    setLocalApt(
+      { ...localApt, customerName: myUserObj.user.username, [e.target.name]: e.target.value },
+    );
+  };
 
-  let handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(localApt);
 
-    let {customer_name, massage_type, massage_id, date, city} = localApt;
-    axios.post(`${API_URL}/appointments`,{
-      customer_name, 
-      massage_type, 
-      massage_id, 
-      date, 
-      city
-    }, {withCredentials:true})
-    .then( response => {
-      console.log(response);
-      setErrorMessage('');
-      setLocalApt({ ...localApt, date: '', city: 'Kampala'});
-      props.history.push("/appointments");
-    }).catch( e => {
-      console.log("Something went wrong, Appointment submission failed", e);
-      setErrorMessage("Oops!, Something went wrong, check your network and try again.")
-    })
-  }
+    const {
+      customerName, massageType, massageId, date, city,
+    } = localApt;
+    axios.post(`${API_URL}/appointments`, {
+      customer_name: customerName,
+      massage_type: massageType,
+      massage_id: massageId,
+      date,
+      city,
+    }, { withCredentials: true })
+      .then(() => {
+        setErrorMessage('');
+        setLocalApt({ ...localApt, date: '', city: 'Kampala' });
+        props.propsObj.history.push('/appointments');
+      }).catch(() => {
+        setErrorMessage('Oops!, Something went wrong, check your network and try again.');
+      });
+  };
 
-  useEffect( async () => {
-    if (myUserObj.loggedInStatus === "NOT LOGGED IN") {
+  useEffect(async () => {
+    if (myUserObj.loggedInStatus === 'NOT LOGGED IN') {
       fetchLoggedInStatus(props, () => {}, setCurrentUser);
     }
 
-    if (myUserObj.loggedInStatus === "LOGGED IN") {
-      setLocalApt({...localApt, customer_name: myUserObj.user.username});
+    if (myUserObj.loggedInStatus === 'LOGGED IN') {
+      setLocalApt({ ...localApt, customerName: myUserObj.user.username });
     }
   }, []);
 
@@ -64,28 +67,32 @@ let AppointmentForm = (props) => {
       <p>{errorMessage}</p>
       <form onSubmit={handleSubmit}>
         <input type="date" name="date" placeholder="Preferred Date" onChange={handleOnChange} min={createDateToday()} required value={localApt.date} />
-        <select name="city" onChange={handleOnChange} value={localApt.city} >
-          {cities.map( city => <option key={cities.indexOf(city)}>{city}</option>)}
+        <select name="city" onChange={handleOnChange} value={localApt.city}>
+          {cities.map((city) => <option key={cities.indexOf(city)}>{city}</option>)}
         </select>
         <button type="submit" data-testid="appointmentFormSubmitButton">Create Appointment</button>
       </form>
-      <button onClick={handleShowAppForm}>Cancel</button>
+      <button type="button" onClick={handleShowAppForm}>Cancel</button>
     </div>
-  )
-}
+  );
+};
 
-let mapStateToProps = (state) => {
-  return ({
-    myUserObj: state.userReducer
-  })
-}
+AppointmentForm.propTypes = {
+  myUserObj: PropTypes.instanceOf(Object).isRequired,
+  propsObj: PropTypes.instanceOf(Object).isRequired,
+  massage: PropTypes.instanceOf(Object).isRequired,
+  setCurrentUser: PropTypes.func.isRequired,
+  handleShowAppForm: PropTypes.func.isRequired,
+};
 
-let mapDispatchToProps = (dispatch) => {
-  return ({
-    setCurrentUser: (userObj) => {
-      dispatch(addUser(userObj));
-    },
-  })
-}
+const mapStateToProps = (state) => ({
+  myUserObj: state.userReducer,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentUser: (userObj) => {
+    dispatch(addUser(userObj));
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppointmentForm);

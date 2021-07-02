@@ -2,56 +2,51 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-import {API_URL} from './Helpers/HelperConstants';
-import {addUser, removeUser} from '../actions/index';
+import API_URL from './Helpers/HelperConstants';
+import { addUser, removeUser } from '../actions/index';
 import MassageForm from './ModelForms/MassageForm';
 import { fetchLoggedInStatus, redirectToHome } from './Helpers/HelperMethods';
 import MassageCard from '../components/MassageCard';
 
-let Dashboard = (props) => {
+const Dashboard = (props) => {
+  const { myUserObj, setCurrentUser, logoutCurrentUser } = props;
 
-  let {myUserObj, setCurrentUser, logoutCurrentUser} = props;
+  const [showMassageForm, setShowMassageForm] = useState(false);
 
-  let [showMassageForm, setShowMassageForm] = useState(false);
-
-  let [massageList, setMassageList] = useState({
+  const [massageList, setMassageList] = useState({
     list: [],
-    listMessage: "Fetching Massage Types ..."
-  })
+    listMessage: 'Fetching Massage Types ...',
+  });
 
-  let toggleShowMassageForm = () => {
+  const toggleShowMassageForm = () => {
     setShowMassageForm(!showMassageForm);
-  }
+  };
 
-  let handleLogout = () => {
-    console.log('You clicked the logout button');
-    axios.delete(`${API_URL}/logout`, {withCredentials: true})
-    .then(response => {
-      console.log("I want to log out", response);
-      logoutCurrentUser();
-      redirectToHome(props);
-    }).catch( error => {
-      console.log("Sorry, couldn't logout smoothly, please try again", error);
-    })
-  }
+  const handleLogout = () => {
+    axios.delete(`${API_URL}/logout`, { withCredentials: true })
+      .then(() => {
+        logoutCurrentUser();
+        redirectToHome(props);
+      }).catch(() => {
+        setMassageList({ list: [], listMessage: "Sorry, couldn't logout smoothly, Please refresh and try again" });
+      });
+  };
 
-  let fetchMassageTypes = () => {
+  const fetchMassageTypes = () => {
     axios.get(`${API_URL}/massages`)
-    .then( response => {
-      console.log(response);
-      setMassageList({ ...massageList, list: [ ...response.data]});
-    }).catch(error => {
-      console.log('something went wrong when fetching massage types', error);
-      setMassageList({ ...massageList, listMessage: 'Something went wrong, Please try again later'});
-    })
-  }
+      .then((response) => {
+        setMassageList({ ...massageList, list: [...response.data] });
+      }).catch(() => {
+        setMassageList({ ...massageList, listMessage: 'Something went wrong, Could not fetch massage types. Please try again later' });
+      });
+  };
 
   useEffect(() => {
-    if (myUserObj.loggedInStatus === "NOT LOGGED IN") {
+    if (myUserObj.loggedInStatus === 'NOT LOGGED IN') {
       fetchLoggedInStatus(props, fetchMassageTypes, setCurrentUser);
-    }
-    else{
+    } else {
       fetchMassageTypes();
     }
   }, []);
@@ -59,54 +54,66 @@ let Dashboard = (props) => {
   return (
     <div>
       {
-        myUserObj.user ?(
+        myUserObj.user ? (
           <div className="dashboard_div">
 
-            <h2>Welcome {myUserObj.user.username}!</h2>
+            <h2>
+              Welcome
+              {myUserObj.user.username}
+              !
+            </h2>
             <Link to="/appointments"><p><strong>My Appointments</strong></p></Link>
-            <button onClick={handleLogout}>Logout</button>
+            <button type="button" onClick={handleLogout}>Logout</button>
             {
-              myUserObj.user.id == 1 ?
-              <button onClick={toggleShowMassageForm}>Create New Massage Type</button>
-              : null
+              myUserObj.user.id === 1
+                ? <button type="button" onClick={toggleShowMassageForm}>Create New Massage Type</button>
+                : null
             }
 
-            {/**This is the new massage form */}
-            {showMassageForm ? <MassageForm handleShowMassageForm={toggleShowMassageForm} handleFetchMassageTypes={fetchMassageTypes} /> : null}
+            {/** This is the new massage form */}
+            {
+              showMassageForm
+                ? (
+                  <MassageForm
+                    handleShowMassageForm={toggleShowMassageForm}
+                    handleFetchMassageTypes={fetchMassageTypes}
+                  />
+                ) : null
+            }
 
             {
-              massageList.list.length != 0 ?
-              massageList.list.map( massage => {
-                return (
-                  <MassageCard massageObj={massage} key={massage.id}/>
-                )
-              })
-              : massageList.listMessage
+              massageList.list.length !== 0
+                ? massageList.list.map((massage) => (
+                  <MassageCard massageObj={massage} key={massage.id} />
+                ))
+                : massageList.listMessage
             }
           </div>
         )
-        : null
+          : null
       }
       <p>Dashboard for Norp Massage Parlor</p>
     </div>
-  )
-}
+  );
+};
 
-let mapStateToProps = (state) => {
-  return ({
-    myUserObj: state.userReducer
-  })
-}
+Dashboard.propTypes = {
+  myUserObj: PropTypes.instanceOf(Object).isRequired,
+  setCurrentUser: PropTypes.func.isRequired,
+  logoutCurrentUser: PropTypes.func.isRequired,
+};
 
-let mapDispatchToProps = (dispatch) => {
-  return ({
-    setCurrentUser: (userObj) => {
-      dispatch(addUser(userObj));
-    },
-    logoutCurrentUser: () => {
-      dispatch(removeUser());
-    }
-  })
-}
+const mapStateToProps = (state) => ({
+  myUserObj: state.userReducer,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentUser: (userObj) => {
+    dispatch(addUser(userObj));
+  },
+  logoutCurrentUser: () => {
+    dispatch(removeUser());
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
