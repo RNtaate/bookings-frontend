@@ -51,6 +51,10 @@ const Dashboard = (props) => {
     }
   }, []);
 
+  if(myUserObj.user == null) {
+    return (<p>Please wait while we verify your credentials ...</p>)
+  }
+
   return (
     <div>
       {
@@ -59,6 +63,7 @@ const Dashboard = (props) => {
 
             <h2>
               Welcome
+              {' '}
               {myUserObj.user.username}
               !
             </h2>
