@@ -1,5 +1,7 @@
 # Bookings-frontend
 
+## Project Description
+
 > This project is a tablet-view layout Single Page Application(SPA) built as the first half of the final capstone in the Microverse technical curriculum.
 
 > It is built to serve as the front-end of the capstone project by fetching data from and submitting data to the back-end project, which project can be found at [this](https://github.com/RNtaate/Bookings-Backend) Github repository.
