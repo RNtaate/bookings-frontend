@@ -21,7 +21,7 @@
 
 ## 🔴 Live Demo
 
-- Coming Soon.
+- [Norp Massage Parlor](https://norp-parlor.netlify.app).
 
 ## Get started on local machine
 ### Prerequisites
