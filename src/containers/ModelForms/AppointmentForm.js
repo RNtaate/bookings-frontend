@@ -54,7 +54,7 @@ const AppointmentForm = (props) => {
 
   useEffect(async () => {
     if (myUserObj.loggedInStatus === 'NOT LOGGED IN') {
-      fetchLoggedInStatus(props, () => {}, setCurrentUser);
+      fetchLoggedInStatus(props.propsObj, () => {}, setCurrentUser);
     }
 
     if (myUserObj.loggedInStatus === 'LOGGED IN') {
