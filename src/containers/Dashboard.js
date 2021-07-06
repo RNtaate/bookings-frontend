@@ -25,7 +25,7 @@ const Dashboard = (props) => {
   };
 
   const handleLogout = () => {
-    axios.delete(`${API_URL}/logout`, { withCredentials: true })
+    axios.delete(`${API_URL}/destroy`, { withCredentials: true })
       .then(() => {
         logoutCurrentUser();
         redirectToHome(props);
