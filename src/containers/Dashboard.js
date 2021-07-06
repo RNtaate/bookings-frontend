@@ -5,17 +5,15 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import API_URL from './Helpers/HelperConstants';
-import { addUser, removeUser } from '../actions/index';
+import { addUser, removeUser, addMassageList } from '../actions/index';
 import MassageForm from './ModelForms/MassageForm';
 import { fetchLoggedInStatus, redirectToHome } from './Helpers/HelperMethods';
 import MassageCard from '../components/MassageCard';
 
 const Dashboard = (props) => {
-  const { myUserObj, setCurrentUser, logoutCurrentUser } = props;
+  const { myUserObj, myMassageList, setCurrentUser, logoutCurrentUser, setCurrentMassageList } = props;
 
   const [showMassageForm, setShowMassageForm] = useState(false);
-
-  const [massageList, setMassageList] = useState([]);
 
   const [ listErrorMessage, setListErrorMessage] = useState('Fetching Massge Types ...');
 
@@ -29,7 +27,7 @@ const Dashboard = (props) => {
         logoutCurrentUser();
         redirectToHome(props);
       }).catch(() => {
-        setMassageList([]);
+        setCurrentMassageList([]);
         setListErrorMessage("Sorry couldn't logout smoothly, Please refresh and try again");
       });
   };
@@ -37,7 +35,7 @@ const Dashboard = (props) => {
   const fetchMassageTypes = () => {
     axios.get(`${API_URL}/massages`)
       .then((response) => {
-        setMassageList([...response.data]);
+        setCurrentMassageList([...response.data]);
       }).catch(() => {
         setListErrorMessage('Something went wrong, Could not fetch massage types. Please try again later');
       });
@@ -46,8 +44,11 @@ const Dashboard = (props) => {
   useEffect(() => {
     if (myUserObj.loggedInStatus === 'NOT LOGGED IN') {
       fetchLoggedInStatus(props, fetchMassageTypes, setCurrentUser);
-    } else {
-      fetchMassageTypes();
+    } 
+    else {
+      if (myMassageList.length === 0) {
+        fetchMassageTypes();
+      }
     }
   }, []);
 
@@ -87,8 +88,8 @@ const Dashboard = (props) => {
             }
 
             {
-              massageList.length !== 0
-                ? massageList.map((massage) => (
+              myMassageList.length !== 0
+                ? myMassageList.map((massage) => (
                   <MassageCard massageObj={massage} key={massage.id} />
                 ))
                 : listErrorMessage
@@ -110,6 +111,7 @@ Dashboard.propTypes = {
 
 const mapStateToProps = (state) => ({
   myUserObj: state.userReducer,
+  myMassageList: state.massageReducer
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -119,6 +121,9 @@ const mapDispatchToProps = (dispatch) => ({
   logoutCurrentUser: () => {
     dispatch(removeUser());
   },
+  setCurrentMassageList: (massageListArray) => {
+    dispatch(addMassageList(massageListArray));
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
