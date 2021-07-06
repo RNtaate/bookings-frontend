@@ -46,16 +46,21 @@ const MassageForm = (props) => {
       withCredentials: true,
     })
       .then((response) => {
+        console.log(response)
         if (response.data.massage) {
           props.handleFetchMassageTypes();
           props.handleShowMassageForm();
-        } else {
-          setLocalMassage(
-            { ...localMassage, createErrors: [...Object.entries(response.data.errors)] },
-          );
         }
-      }).catch(() => {
-        setLocalMassage({ ...localMassage, createErrors: [['NetWork Error! ', 'Something went wrong, please try again.']] });
+      }).catch((e) => {
+        console.log(e.response);
+        if (e.response.status === 422) {
+          setLocalMassage(
+            { ...localMassage, createErrors: [...Object.entries(e.response.data.errors)] }
+          );          
+        }
+        else {
+          setLocalMassage({ ...localMassage, createErrors: [['NetWork Error! ', 'Something went wrong, please try again.']] });          
+        }
       });
   };
 
