@@ -15,10 +15,9 @@ const Dashboard = (props) => {
 
   const [showMassageForm, setShowMassageForm] = useState(false);
 
-  const [massageList, setMassageList] = useState({
-    list: [],
-    listMessage: 'Fetching Massage Types ...',
-  });
+  const [massageList, setMassageList] = useState([]);
+
+  const [ listErrorMessage, setListErrorMessage] = useState('Fetching Massge Types ...');
 
   const toggleShowMassageForm = () => {
     setShowMassageForm(!showMassageForm);
@@ -30,16 +29,17 @@ const Dashboard = (props) => {
         logoutCurrentUser();
         redirectToHome(props);
       }).catch(() => {
-        setMassageList({ list: [], listMessage: "Sorry, couldn't logout smoothly, Please refresh and try again" });
+        setMassageList([]);
+        setListErrorMessage("Sorry couldn't logout smoothly, Please refresh and try again");
       });
   };
 
   const fetchMassageTypes = () => {
     axios.get(`${API_URL}/massages`)
       .then((response) => {
-        setMassageList({ ...massageList, list: [...response.data] });
+        setMassageList([...response.data]);
       }).catch(() => {
-        setMassageList({ ...massageList, listMessage: 'Something went wrong, Could not fetch massage types. Please try again later' });
+        setListErrorMessage('Something went wrong, Could not fetch massage types. Please try again later');
       });
   };
 
@@ -87,11 +87,11 @@ const Dashboard = (props) => {
             }
 
             {
-              massageList.list.length !== 0
-                ? massageList.list.map((massage) => (
+              massageList.length !== 0
+                ? massageList.map((massage) => (
                   <MassageCard massageObj={massage} key={massage.id} />
                 ))
-                : massageList.listMessage
+                : listErrorMessage
             }
           </div>
         )
