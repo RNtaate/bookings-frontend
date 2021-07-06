@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import API_URL from '../Helpers/HelperConstants';
+import { addMassageType } from '../../actions';
 
 const MassageForm = (props) => {
   const [localMassage, setLocalMassage] = useState({
@@ -14,7 +16,7 @@ const MassageForm = (props) => {
     createErrors: [],
   });
 
-  const { handleShowMassageForm } = props;
+  const { updateCurrentMassageList, handleShowMassageForm } = props;
 
   const handleOnChange = (e) => {
     setLocalMassage({ ...localMassage, [e.target.name]: e.target.value });
@@ -47,8 +49,8 @@ const MassageForm = (props) => {
     })
       .then((response) => {
         console.log(response)
-        if (response.data.massage) {
-          props.handleFetchMassageTypes();
+        if (response.data) {
+          updateCurrentMassageList(response.data)
           props.handleShowMassageForm();
         }
       }).catch((e) => {
@@ -96,7 +98,14 @@ const MassageForm = (props) => {
 
 MassageForm.propTypes = {
   handleShowMassageForm: PropTypes.func.isRequired,
-  handleFetchMassageTypes: PropTypes.func.isRequired,
 };
 
-export default MassageForm;
+const mapDispatchToProps = (dispatch) => {
+  return ({
+    updateCurrentMassageList: (massageTypeObj) => {
+      dispatch(addMassageType(massageTypeObj));
+    }
+  })
+}
+
+export default connect(null, mapDispatchToProps)(MassageForm);

@@ -82,7 +82,6 @@ const Dashboard = (props) => {
                 ? (
                   <MassageForm
                     handleShowMassageForm={toggleShowMassageForm}
-                    handleFetchMassageTypes={fetchMassageTypes}
                   />
                 ) : null
             }
