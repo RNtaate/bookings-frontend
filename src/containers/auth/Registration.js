@@ -32,22 +32,22 @@ const Registration = (props) => {
     }, { withCredentials: true })
       .then((response) => {
         if (response.data.status) {
-          if (response.data.status !== 500) {
-            setUserDetails({
-              username: '',
-              password: '',
-              passwordConfirmation: '',
-              reg_errors: [],
-            });
-            toggleShowRegForm();
-          } else {
-            setUserDetails(
-              { ...userDetails, reg_errors: [...Object.entries(response.data.errors)] },
-            );
-          }
+          setUserDetails({
+            username: '',
+            password: '',
+            passwordConfirmation: '',
+            reg_errors: [],
+          });
+          toggleShowRegForm();
         }
-      }).catch(() => {
-        setUserDetails({ ...userDetails, reg_errors: [['NetWork Error! ', 'Something went wrong, please try again.']] });
+      }).catch((e) => {
+        if (e.response.status === 422) {
+          setUserDetails(
+            { ...userDetails, reg_errors: [...Object.entries(e.response.data.errors)] },
+          );
+        } else {
+          setUserDetails({ ...userDetails, reg_errors: [['NetWork Error! ', 'Something went wrong, please try again.']] });
+        }
       });
   };
 
