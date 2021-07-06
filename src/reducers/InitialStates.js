@@ -3,4 +3,6 @@ const userInitialState = {
   loggedInStatus: 'NOT LOGGED IN',
 };
 
-export default userInitialState;
+const massageListInitialState = []
+
+export {userInitialState, massageListInitialState};
