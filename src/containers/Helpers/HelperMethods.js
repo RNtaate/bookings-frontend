@@ -23,9 +23,10 @@ export const redirectToHome = (props) => {
 };
 
 export const fetchLoggedInStatus = (props, funcInResponse = () => {}, setUserStateFunc) => {
-  axios.get(`${API_URL}/logged_in`, { withCredentials: true })
+  axios.get(`${API_URL}/show`, { withCredentials: true })
     .then((response) => {
       if (response.data.logged_in) {
+        console.log(response)
         setUserStateFunc(response.data.user);
         funcInResponse();
       } else {
