@@ -2,8 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import API_URL from './Helpers/HelperConstants';
+import { fetchLoggedInStatus } from './Helpers/HelperMethods';
+import { addUser } from '../actions';
 
-const Appointments = () => {
+const Appointments = (props) => {
+
+  const {myUserObj, setCurrentUser} = props;
+
   const [localAppointments, setLocalAppointmnets] = useState({
     appsList: [],
     errorMessage: 'Fetching appointments ...',
@@ -23,7 +28,12 @@ const Appointments = () => {
   };
 
   useEffect(() => {
-    fetchAppointmentsList();
+    if (myUserObj.loggedInStatus === 'NOT LOGGED IN'){
+      fetchLoggedInStatus(props, fetchAppointmentsList, setCurrentUser);
+    }else {
+      fetchAppointmentsList();
+    }
+
   }, []);
 
   return (
@@ -63,4 +73,14 @@ const mapStateToProps = (state) => ({
   myUserObj: state.userReducer,
 });
 
-export default connect(mapStateToProps, null)(Appointments);
+const mapDispatchToProps = (dispatch) => {
+  return (
+    {
+      setCurrentUser : (userObj) => {
+        dispatch(addUser(userObj));
+      }
+    }
+  )
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Appointments);
