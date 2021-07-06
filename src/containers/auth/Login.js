@@ -38,11 +38,13 @@ const Login = (props) => {
           });
 
           props.redirect();
-        } else {
-          setLoginDetails({ ...loginDetails, errorMessage: 'Username or Password is wrong' });
         }
-      }).catch(() => {
-        setLoginDetails({ ...loginDetails, errorMessage: 'Network Error!, Please try again later' });
+      }).catch((e) => {
+        if (e.response.status === 403) {
+          setLoginDetails({ ...loginDetails, errorMessage: e.response.data.error });
+        } else {
+          setLoginDetails({ ...loginDetails, errorMessage: 'Network Error!, Please try again later' });
+        }
       });
   };
 
