@@ -23,10 +23,10 @@ const Home = (props) => {
   };
 
   return (
-    <div className="home_div">
-      <h2>Your stop for a massage relaxation</h2>
+    <div className={styles.home_div}>
+      <h1>NORP MASSAGE PARLOR</h1>
 
-      <button type="button" onClick={toggleShowRegForm}>Sign up</button>
+      <button type="button" onClick={toggleShowRegForm} className={styles.sign_up_button}>Sign up</button>
 
       {/** This is the Sign up form */}
       <div className={styles.hover_form_div} style={{ visibility: showRegForm ? 'visible' : 'hidden', opacity: showRegForm ? 1 : 0 }}>

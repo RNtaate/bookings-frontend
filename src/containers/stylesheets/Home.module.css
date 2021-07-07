@@ -1,10 +1,51 @@
+.home_div {
+  height: 100vh;
+  background-image: url('../../assets/theme_massage_5.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.home_div > h1{
+  color: white;
+  font-size: 4.3em;
+  text-shadow: 0 4px 1px rgb(150, 191, 18), 0 10px 50px rgba(0, 50, 0);
+}
+
+.home_div > button {
+  width: 15em;
+  padding: 13px 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  background-color: rgb(150, 191, 18);
+  box-shadow: 0 2px 5px 5px rgba(0, 0, 0, 0.4);
+  outline: none;
+  border: none;
+  border-radius: 2em;
+}
+
+.home_div > button:hover {
+  cursor: pointer;
+  background-color: white;
+  color:rgb(150, 191, 18);
+}
+
+.sign_up_button {
+  margin: 3em 0;
+}
+
 .hover_form_div {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgb(150, 191, 18, 0.8);
+  background-color: rgba(150, 191, 18, 0.5);
   z-index: 1;
   transition: all 0.5s ease-in-out;
   display: flex;

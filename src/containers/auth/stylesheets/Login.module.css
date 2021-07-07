@@ -1,10 +1,11 @@
 .form_holder_div {
   padding: 20px;
   position: relative;
-  background-color: rgba(255, 255, 255, 0.15);
+  background-color: rgba(150, 191, 18, 0.8);
   width: 30%;
   border: 1px solid white;
   border-radius: 5px;
+  box-shadow: 0 2px 5px 5px rgba(0, 0, 0, 0.4);
 }
 
 .cancel_form_button {
@@ -55,7 +56,8 @@
 .form_holder_div > form > input {
   outline: none;
   border: 1px solid white;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: transparent;
+
   margin-bottom: 10px;
 }
 
