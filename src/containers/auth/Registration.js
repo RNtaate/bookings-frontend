@@ -89,9 +89,9 @@ const Registration = (props) => {
             <button type="submit" data-testid="regFormButton">Sign Up</button>
           </form>
           {
-            loading === null ?
-            null : <img src={loading} alt="Something borrowed"/>
-          }          
+            loading === null
+              ? null : <img src={loading} alt="Something borrowed" />
+          }
         </div>
       </>
     ) : null

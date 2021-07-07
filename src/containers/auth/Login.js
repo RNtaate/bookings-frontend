@@ -70,8 +70,8 @@ const Login = (props) => {
         <button type="submit" data-testid="logFormButton">Login</button>
       </form>
       {
-        loading === null ?
-        null : <img src={loading} alt="Something borrowed"/>
+        loading === null
+          ? null : <img src={loading} alt="Something borrowed" />
       }
     </div>
   );
