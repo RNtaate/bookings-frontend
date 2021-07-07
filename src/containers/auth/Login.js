@@ -6,6 +6,9 @@ import { addUser } from '../../actions/index';
 import { logInUser } from '../Helpers/FetchMethods';
 
 const Login = (props) => {
+
+  const {showLoginForm, toggleShowLoginForm} = props;
+
   const [loginDetails, setLoginDetails] = useState({
     username: '',
     password: '',
@@ -35,7 +38,7 @@ const Login = (props) => {
             password: '',
             errorMessage: '',
           });
-
+          toggleShowLoginForm();
           props.redirect();
         }
       }).catch((e) => {
@@ -49,11 +52,12 @@ const Login = (props) => {
 
   return (
     <div>
+      <button type='button' onClick={toggleShowLoginForm}>Cancel</button>
       <h2>Login</h2>
       <p>{loginDetails.errorMessage}</p>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="username" placeholder="Username" value={loginDetails.username} onChange={handleOnchange} />
-        <input type="password" name="password" placeholder="Password" value={loginDetails.password} onChange={handleOnchange} />
+        <input type="text" name="username" placeholder="Username" value={loginDetails.username} onChange={handleOnchange} required/>
+        <input type="password" name="password" placeholder="Password" value={loginDetails.password} onChange={handleOnchange} required/>
         <button type="submit" data-testid="logFormButton">Login</button>
       </form>
     </div>
