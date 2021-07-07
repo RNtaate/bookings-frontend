@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { addUser } from '../../actions/index';
-import API_URL from '../Helpers/HelperConstants';
+import {logInUser} from '../Helpers/FetchMethods';
 
 const Login = (props) => {
   const [loginDetails, setLoginDetails] = useState({
@@ -22,30 +21,30 @@ const Login = (props) => {
 
     const { username, password } = loginDetails;
 
-    axios.post(`${API_URL}/sessions`, {
+    logInUser({
       user: {
         username,
         password,
-      },
-    }, { withCredentials: true })
-      .then((response) => {
-        props.setCurrentUser(response.data.user);
-        if (response.data.user) {
-          setLoginDetails({
-            username: '',
-            password: '',
-            errorMessage: '',
-          });
+      }
+    })
+    .then((response) => {
+      props.setCurrentUser(response.data.user);
+      if (response.data.user) {
+        setLoginDetails({
+          username: '',
+          password: '',
+          errorMessage: '',
+        });
 
-          props.redirect();
-        }
-      }).catch((e) => {
-        if (e.response.status === 403) {
-          setLoginDetails({ ...loginDetails, errorMessage: e.response.data.error });
-        } else {
-          setLoginDetails({ ...loginDetails, errorMessage: 'Network Error!, Please try again later' });
-        }
-      });
+        props.redirect();
+      }
+    }).catch((e) => {
+      if (e.response.status === 403) {
+        setLoginDetails({ ...loginDetails, errorMessage: e.response.data.error });
+      } else {
+        setLoginDetails({ ...loginDetails, errorMessage: 'Network Error!, Please try again later' });
+      }
+    });
   };
 
   return (

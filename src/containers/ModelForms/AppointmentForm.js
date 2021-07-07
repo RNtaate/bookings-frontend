@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 
 import { createDateToday, fetchLoggedInStatus } from '../Helpers/HelperMethods';
 import { addUser } from '../../actions/index';
-import API_URL from '../Helpers/HelperConstants';
+import {createAppointment} from '../Helpers/FetchMethods';
 
 const AppointmentForm = (props) => {
   const cities = ['Kampala', 'Arua', 'Gayaza', 'New York', 'Dehli', 'Lagos'];
@@ -36,13 +35,14 @@ const AppointmentForm = (props) => {
     const {
       customerName, massageType, massageId, date, city,
     } = localApt;
-    axios.post(`${API_URL}/appointments`, {
-      customer_name: customerName,
-      massage_type: massageType,
-      massage_id: massageId,
-      date,
-      city,
-    }, { withCredentials: true })
+
+      createAppointment({
+        customer_name: customerName,
+        massage_type: massageType,
+        massage_id: massageId,
+        date,
+        city,        
+      })
       .then(() => {
         setErrorMessage('');
         setLocalApt({ ...localApt, date: '', city: 'Kampala' });

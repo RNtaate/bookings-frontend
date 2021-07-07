@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
-import API_URL from './Helpers/HelperConstants';
+
 import { fetchLoggedInStatus } from './Helpers/HelperMethods';
 import { addUser } from '../actions';
+import { getAppointmentsList } from './Helpers/FetchMethods';
 
 const Appointments = (props) => {
 
@@ -15,7 +15,7 @@ const Appointments = (props) => {
   });
 
   const fetchAppointmentsList = () => {
-    axios.get(`${API_URL}/appointments`, { withCredentials: true })
+      getAppointmentsList()
       .then((res) => {
         if (res.data.length > 0) {
           setLocalAppointmnets({ ...localAppointments, appsList: [...res.data], errorMessage: 'I have been replaced' });

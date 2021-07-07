@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import API_URL from '../Helpers/HelperConstants';
 import { addMassageType } from '../../actions';
+import { createMassage } from '../Helpers/FetchMethods';
 
 const MassageForm = (props) => {
   const [localMassage, setLocalMassage] = useState({
@@ -40,30 +41,24 @@ const MassageForm = (props) => {
     formData.append('duration', duration);
     formData.append('massage_image', massageImage);
 
-    axios({
-      method: 'post',
-      url: `${API_URL}/massages`,
-      data: formData,
-      headers: { 'Content-Type': 'multipart/form-data' },
-      withCredentials: true,
-    })
-      .then((response) => {
-        console.log(response)
-        if (response.data) {
-          updateCurrentMassageList(response.data)
-          props.handleShowMassageForm();
-        }
-      }).catch((e) => {
-        console.log(e.response);
-        if (e.response.status === 422) {
-          setLocalMassage(
-            { ...localMassage, createErrors: [...Object.entries(e.response.data.errors)] }
-          );          
-        }
-        else {
-          setLocalMassage({ ...localMassage, createErrors: [['NetWork Error! ', 'Something went wrong, please try again.']] });          
-        }
-      });
+    createMassage(formData)
+    .then((response) => {
+      console.log(response)
+      if (response.data) {
+        updateCurrentMassageList(response.data)
+        props.handleShowMassageForm();
+      }
+    }).catch((e) => {
+      console.log(e.response);
+      if (e.response.status === 422) {
+        setLocalMassage(
+          { ...localMassage, createErrors: [...Object.entries(e.response.data.errors)] }
+        );          
+      }
+      else {
+        setLocalMassage({ ...localMassage, createErrors: [['NetWork Error! ', 'Something went wrong, please try again.']] });          
+      }
+    });
   };
 
   return (

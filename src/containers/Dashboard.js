@@ -1,14 +1,13 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import API_URL from './Helpers/HelperConstants';
 import { addUser, removeUser, addMassageList } from '../actions/index';
 import MassageForm from './ModelForms/MassageForm';
 import { fetchLoggedInStatus, redirectToHome } from './Helpers/HelperMethods';
 import MassageCard from '../components/MassageCard';
+import { logOutUser, getMassageTypes } from './Helpers/FetchMethods';
 
 const Dashboard = (props) => {
   const { myUserObj, myMassageList, setCurrentUser, logoutCurrentUser, setCurrentMassageList } = props;
@@ -22,7 +21,7 @@ const Dashboard = (props) => {
   };
 
   const handleLogout = () => {
-    axios.delete(`${API_URL}/destroy`, { withCredentials: true })
+      logOutUser()
       .then(() => {
         logoutCurrentUser();
         redirectToHome(props);
@@ -33,12 +32,12 @@ const Dashboard = (props) => {
   };
 
   const fetchMassageTypes = () => {
-    axios.get(`${API_URL}/massages`)
-      .then((response) => {
-        setCurrentMassageList([...response.data]);
-      }).catch(() => {
-        setListErrorMessage('Something went wrong, Could not fetch massage types. Please try again later');
-      });
+    getMassageTypes()
+    .then((response) => {
+      setCurrentMassageList([...response.data]);
+    }).catch(() => {
+      setListErrorMessage('Something went wrong, Could not fetch massage types. Please try again later');
+    });
   };
 
   useEffect(() => {

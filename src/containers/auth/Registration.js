@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 
 import API_URL from '../Helpers/HelperConstants';
+import { signUpUser } from '../Helpers/FetchMethods';
 
 const Registration = (props) => {
   const [userDetails, setUserDetails] = useState({
@@ -23,32 +23,32 @@ const Registration = (props) => {
 
     const { username, password, passwordConfirmation } = userDetails;
 
-    axios.post(`${API_URL}/registrations`, {
+    signUpUser({
       user: {
         username,
         password,
-        password_confirmation: passwordConfirmation,
-      },
-    }, { withCredentials: true })
-      .then((response) => {
-        if (response.data.status) {
-          setUserDetails({
-            username: '',
-            password: '',
-            passwordConfirmation: '',
-            reg_errors: [],
-          });
-          toggleShowRegForm();
-        }
-      }).catch((e) => {
-        if (e.response.status === 422) {
-          setUserDetails(
-            { ...userDetails, reg_errors: [...Object.entries(e.response.data.errors)] },
-          );
-        } else {
-          setUserDetails({ ...userDetails, reg_errors: [['NetWork Error! ', 'Something went wrong, please try again.']] });
-        }
-      });
+        password_confirmation: passwordConfirmation
+      }
+    })
+    .then((response) => {
+      if (response.data.status) {
+        setUserDetails({
+          username: '',
+          password: '',
+          passwordConfirmation: '',
+          reg_errors: [],
+        });
+        toggleShowRegForm();
+      }
+    }).catch((e) => {
+      if (e.response.status === 422) {
+        setUserDetails(
+          { ...userDetails, reg_errors: [...Object.entries(e.response.data.errors)] },
+        );
+      } else {
+        setUserDetails({ ...userDetails, reg_errors: [['NetWork Error! ', 'Something went wrong, please try again.']] });
+      }
+    });
   };
 
   return (
