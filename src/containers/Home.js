@@ -7,8 +7,6 @@ import Login from './auth/Login';
 import * as styles from './stylesheets/Home.module.css';
 
 const Home = (props) => {
-  const { myUserObj } = props;
-
   const [showRegForm, setShowRegForm] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
 
@@ -18,7 +16,7 @@ const Home = (props) => {
 
   const toggleShowLoginForm = () => {
     setShowLoginForm(!showLoginForm);
-  }
+  };
 
   const redirect = () => {
     props.history.push('/');
@@ -29,9 +27,9 @@ const Home = (props) => {
       <h2>Your stop for a massage relaxation</h2>
 
       <button type="button" onClick={toggleShowRegForm}>Sign up</button>
-      
-      {/**This is the Sign up form */}
-      <div className={styles.hover_form_div} style={{visibility: showRegForm ? 'visible' : 'hidden', opacity: showRegForm ? 1 : 0 }}>
+
+      {/** This is the Sign up form */}
+      <div className={styles.hover_form_div} style={{ visibility: showRegForm ? 'visible' : 'hidden', opacity: showRegForm ? 1 : 0 }}>
         {
           showRegForm === true
             ? (
@@ -45,8 +43,8 @@ const Home = (props) => {
 
       <button type="button" onClick={toggleShowLoginForm}>Login</button>
 
-      {/**This is the login form */}
-      <div className={styles.hover_form_div} style={{visibility: showLoginForm ? 'visible' : 'hidden', opacity: showLoginForm ? 1 : 0 }}>
+      {/** This is the login form */}
+      <div className={styles.hover_form_div} style={{ visibility: showLoginForm ? 'visible' : 'hidden', opacity: showLoginForm ? 1 : 0 }}>
         {
           showLoginForm === true
             ? (
@@ -64,7 +62,6 @@ const Home = (props) => {
 };
 
 Home.propTypes = {
-  myUserObj: PropTypes.instanceOf(Object).isRequired,
   history: PropTypes.instanceOf(Object).isRequired,
 };
 

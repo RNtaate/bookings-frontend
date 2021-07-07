@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgb(150,191,18, 0.8);
+  background-color: rgb(150, 191, 18, 0.8);
   z-index: 1;
   transition: all 0.5s ease-in-out;
   display: flex;

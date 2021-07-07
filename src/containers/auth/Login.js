@@ -7,8 +7,7 @@ import { logInUser } from '../Helpers/FetchMethods';
 import * as styler from './stylesheets/Login.module.css';
 
 const Login = (props) => {
-
-  const {showLoginForm, toggleShowLoginForm} = props;
+  const { toggleShowLoginForm } = props;
 
   const [loginDetails, setLoginDetails] = useState({
     username: '',
@@ -53,12 +52,15 @@ const Login = (props) => {
 
   return (
     <div className={styler.form_holder_div}>
-      <span onClick={toggleShowLoginForm}><i class="far fa-times-circle"></i></span>
+      <button type="button" className={styler.cancel_form_button} onClick={toggleShowLoginForm}>
+        <i className="far fa-times-circle" />
+        {' '}
+      </button>
       <h2>Login</h2>
       <p className={styler.error_message}>{loginDetails.errorMessage}</p>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="username" placeholder="Username" value={loginDetails.username} onChange={handleOnchange} required/>
-        <input type="password" name="password" placeholder="Password" value={loginDetails.password} onChange={handleOnchange} required/>
+        <input type="text" name="username" placeholder="Username" value={loginDetails.username} onChange={handleOnchange} required />
+        <input type="password" name="password" placeholder="Password" value={loginDetails.password} onChange={handleOnchange} required />
         <button type="submit" data-testid="logFormButton">Login</button>
       </form>
     </div>
@@ -72,6 +74,7 @@ Login.defaultProps = {
 Login.propTypes = {
   setCurrentUser: PropTypes.func.isRequired,
   redirect: PropTypes.func,
+  toggleShowLoginForm: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({

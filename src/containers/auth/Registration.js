@@ -55,13 +55,19 @@ const Registration = (props) => {
     showRegForm ? (
       <>
         <div className={loginStyler.form_holder_div}>
-          <span onClick={toggleShowRegForm}><i class="far fa-times-circle"></i></span>
+          <button type="button" className={loginStyler.cancel_form_button} onClick={toggleShowRegForm}>
+            <i className="far fa-times-circle" />
+
+          </button>
           <h2>Sign Up</h2>
           <ul>
             {
             userDetails.reg_errors.length !== 0
               ? userDetails.reg_errors.map((error) => (
-                <li key={userDetails.reg_errors.indexOf(error)} className={loginStyler.error_message}>
+                <li
+                  key={userDetails.reg_errors.indexOf(error)}
+                  className={loginStyler.error_message}
+                >
                   {error[0]}
                   {' '}
                   {error[1]}

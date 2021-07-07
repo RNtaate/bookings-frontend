@@ -7,13 +7,17 @@
   border-radius: 5px;
 }
 
-.form_holder_div > span {
+.cancel_form_button {
   color: white;
   font-size: 1.5em;
+  margin-bottom: 0.2em;
   position: absolute;
-  top: -15%;
+  bottom: 100%;
   right: 0;
   cursor: pointer;
+  background-color: transparent;
+  border: none;
+  padding: 0;
 }
 
 .form_holder_div > h2 {
@@ -59,12 +63,12 @@
   outline: none;
   border: 1px solid white;
   background-color: white;
-  color: rgb(150,191,18);
+  color: rgb(150, 191, 18);
   font-weight: bold;
   cursor: pointer;
 }
 
 .form_holder_div > form > button:hover {
-  background-color:rgb(150,191,18);
+  background-color: rgb(150, 191, 18);
   color: white;
 }
