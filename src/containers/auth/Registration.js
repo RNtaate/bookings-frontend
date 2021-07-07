@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { signUpUser } from '../Helpers/FetchMethods';
 import * as loginStyler from './stylesheets/Login.module.css';
+import loader from '../../assets/loading_1.gif';
 
 const Registration = (props) => {
   const [userDetails, setUserDetails] = useState({
@@ -12,6 +13,8 @@ const Registration = (props) => {
     reg_errors: [],
   });
 
+  const [loading, setLoading] = useState(null);
+
   const { showRegForm, toggleShowRegForm } = props;
 
   const handleOnChange = (e) => {
@@ -20,6 +23,7 @@ const Registration = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(loader);
 
     const { username, password, passwordConfirmation } = userDetails;
 
@@ -31,6 +35,7 @@ const Registration = (props) => {
       },
     })
       .then((response) => {
+        setLoading(null);
         if (response.data.status) {
           setUserDetails({
             username: '',
@@ -41,6 +46,7 @@ const Registration = (props) => {
           toggleShowRegForm();
         }
       }).catch((e) => {
+        setLoading(null);
         if (e.response.status === 422) {
           setUserDetails(
             { ...userDetails, reg_errors: [...Object.entries(e.response.data.errors)] },
@@ -82,6 +88,10 @@ const Registration = (props) => {
             <input type="password" name="passwordConfirmation" placeholder="Password Confirmation" value={userDetails.passwordConfirmation} onChange={handleOnChange} required />
             <button type="submit" data-testid="regFormButton">Sign Up</button>
           </form>
+          {
+            loading === null ?
+            null : <img src={loading} alt="Something borrowed"/>
+          }          
         </div>
       </>
     ) : null

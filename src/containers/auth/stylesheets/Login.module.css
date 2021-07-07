@@ -72,3 +72,12 @@
   background-color: rgb(150, 191, 18);
   color: white;
 }
+
+.form_holder_div > img {
+  margin-left: 50%;
+  transform: translateX(-50%);
+  margin-top: 20px;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}

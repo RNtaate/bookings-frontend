@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { addUser } from '../../actions/index';
 import { logInUser } from '../Helpers/FetchMethods';
 import * as styler from './stylesheets/Login.module.css';
+import loader from '../../assets/loading_1.gif';
 
 const Login = (props) => {
   const { toggleShowLoginForm } = props;
@@ -15,12 +16,15 @@ const Login = (props) => {
     errorMessage: '',
   });
 
+  const [loading, setLoading] = useState(null);
+
   const handleOnchange = (e) => {
     setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(loader);
 
     const { username, password } = loginDetails;
 
@@ -31,6 +35,7 @@ const Login = (props) => {
       },
     })
       .then((response) => {
+        setLoading(null);
         props.setCurrentUser(response.data.user);
         if (response.data.user) {
           setLoginDetails({
@@ -42,6 +47,7 @@ const Login = (props) => {
           props.redirect();
         }
       }).catch((e) => {
+        setLoading(null);
         if (e.response.status === 403) {
           setLoginDetails({ ...loginDetails, errorMessage: e.response.data.error });
         } else {
@@ -63,6 +69,10 @@ const Login = (props) => {
         <input type="password" name="password" placeholder="Password" value={loginDetails.password} onChange={handleOnchange} required />
         <button type="submit" data-testid="logFormButton">Login</button>
       </form>
+      {
+        loading === null ?
+        null : <img src={loading} alt="Something borrowed"/>
+      }
     </div>
   );
 };
