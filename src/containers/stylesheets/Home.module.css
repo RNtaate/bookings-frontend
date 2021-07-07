@@ -1,6 +1,6 @@
 .home_div {
   height: 100vh;
-  background-image: url('../../assets/theme_massage_5.jpg');
+  background: url('../../assets/theme_massage_5.jpg'), linear-gradient(black, black);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
