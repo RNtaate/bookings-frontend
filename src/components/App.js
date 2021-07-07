@@ -9,7 +9,6 @@ import MassageDetails from '../containers/MassageDetails';
 function App() {
   return (
     <BrowserRouter>
-      <h1>Norp Massage Parlor</h1>
       <Switch>
         <Route exact path="/" component={Dashboard} />
         <Route exact path="/home" component={Home} />
