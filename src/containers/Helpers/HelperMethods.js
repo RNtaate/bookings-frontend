@@ -26,7 +26,6 @@ export const fetchLoggedInStatus = (props, funcInResponse = () => {}, setUserSta
   axios.get(`${API_URL}/show`, { withCredentials: true })
     .then((response) => {
       if (response.data.logged_in) {
-        console.log(response)
         setUserStateFunc(response.data.user);
         funcInResponse();
       } else {

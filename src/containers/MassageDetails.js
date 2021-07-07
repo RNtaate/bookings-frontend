@@ -16,7 +16,7 @@ const MassageDetails = (props) => {
   };
 
   const fetchSingleMassage = (id = 0) => {
-      getMassageType(id)
+    getMassageType(id)
       .then((response) => {
         setLocalMassage({ ...localMassage, massageData: response.data });
       }).catch(() => {

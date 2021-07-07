@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import { createDateToday, fetchLoggedInStatus } from '../Helpers/HelperMethods';
 import { addUser } from '../../actions/index';
-import {createAppointment} from '../Helpers/FetchMethods';
+import { createAppointment } from '../Helpers/FetchMethods';
 
 const AppointmentForm = (props) => {
   const cities = ['Kampala', 'Arua', 'Gayaza', 'New York', 'Dehli', 'Lagos'];
@@ -36,13 +36,13 @@ const AppointmentForm = (props) => {
       customerName, massageType, massageId, date, city,
     } = localApt;
 
-      createAppointment({
-        customer_name: customerName,
-        massage_type: massageType,
-        massage_id: massageId,
-        date,
-        city,        
-      })
+    createAppointment({
+      customer_name: customerName,
+      massage_type: massageType,
+      massage_id: massageId,
+      date,
+      city,
+    })
       .then(() => {
         setErrorMessage('');
         setLocalApt({ ...localApt, date: '', city: 'Kampala' });

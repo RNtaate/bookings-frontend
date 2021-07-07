@@ -1,14 +1,14 @@
 import { massageListInitialState } from './InitialStates';
 
-let massageReducer = (state = massageListInitialState, action) => {
+const massageReducer = (state = massageListInitialState, action) => {
   switch (action.type) {
-    case "ADD_MASSAGE_LIST":
-      return [ ...action.payload];
-    case "ADD_MASSAGE_TYPE":
+    case 'ADD_MASSAGE_LIST':
+      return [...action.payload];
+    case 'ADD_MASSAGE_TYPE':
       return (state.concat(action.payload));
     default:
-      return state
+      return state;
   }
-}
+};
 
 export default massageReducer;

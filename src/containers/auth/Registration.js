@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import API_URL from '../Helpers/HelperConstants';
 import { signUpUser } from '../Helpers/FetchMethods';
 
 const Registration = (props) => {
@@ -27,28 +26,28 @@ const Registration = (props) => {
       user: {
         username,
         password,
-        password_confirmation: passwordConfirmation
-      }
+        password_confirmation: passwordConfirmation,
+      },
     })
-    .then((response) => {
-      if (response.data.status) {
-        setUserDetails({
-          username: '',
-          password: '',
-          passwordConfirmation: '',
-          reg_errors: [],
-        });
-        toggleShowRegForm();
-      }
-    }).catch((e) => {
-      if (e.response.status === 422) {
-        setUserDetails(
-          { ...userDetails, reg_errors: [...Object.entries(e.response.data.errors)] },
-        );
-      } else {
-        setUserDetails({ ...userDetails, reg_errors: [['NetWork Error! ', 'Something went wrong, please try again.']] });
-      }
-    });
+      .then((response) => {
+        if (response.data.status) {
+          setUserDetails({
+            username: '',
+            password: '',
+            passwordConfirmation: '',
+            reg_errors: [],
+          });
+          toggleShowRegForm();
+        }
+      }).catch((e) => {
+        if (e.response.status === 422) {
+          setUserDetails(
+            { ...userDetails, reg_errors: [...Object.entries(e.response.data.errors)] },
+          );
+        } else {
+          setUserDetails({ ...userDetails, reg_errors: [['NetWork Error! ', 'Something went wrong, please try again.']] });
+        }
+      });
   };
 
   return (

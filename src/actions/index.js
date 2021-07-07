@@ -7,16 +7,12 @@ export const removeUser = () => ({
   type: 'REMOVE_USER',
 });
 
-export const addMassageList = (massageListArray) => {
-  return ({
-    type: 'ADD_MASSAGE_LIST',
-    payload: massageListArray
-  })
-}
+export const addMassageList = (massageListArray) => ({
+  type: 'ADD_MASSAGE_LIST',
+  payload: massageListArray,
+});
 
-export const addMassageType = (massageTypeObj) => {
-  return ({
-    type: 'ADD_MASSAGE_TYPE',
-    payload: massageTypeObj
-  })
-}
+export const addMassageType = (massageTypeObj) => ({
+  type: 'ADD_MASSAGE_TYPE',
+  payload: massageTypeObj,
+});

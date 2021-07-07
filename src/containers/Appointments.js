@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { fetchLoggedInStatus } from './Helpers/HelperMethods';
 import { addUser } from '../actions';
 import { getAppointmentsList } from './Helpers/FetchMethods';
 
 const Appointments = (props) => {
-
-  const {myUserObj, setCurrentUser} = props;
+  const { myUserObj, setCurrentUser } = props;
 
   const [localAppointments, setLocalAppointmnets] = useState({
     appsList: [],
@@ -15,7 +15,7 @@ const Appointments = (props) => {
   });
 
   const fetchAppointmentsList = () => {
-      getAppointmentsList()
+    getAppointmentsList()
       .then((res) => {
         if (res.data.length > 0) {
           setLocalAppointmnets({ ...localAppointments, appsList: [...res.data], errorMessage: 'I have been replaced' });
@@ -28,12 +28,11 @@ const Appointments = (props) => {
   };
 
   useEffect(() => {
-    if (myUserObj.loggedInStatus === 'NOT LOGGED IN'){
+    if (myUserObj.loggedInStatus === 'NOT LOGGED IN') {
       fetchLoggedInStatus(props, fetchAppointmentsList, setCurrentUser);
-    }else {
+    } else {
       fetchAppointmentsList();
     }
-
   }, []);
 
   return (
@@ -69,18 +68,21 @@ const Appointments = (props) => {
   );
 };
 
+Appointments.propTypes = {
+  myUserObj: PropTypes.instanceOf(Object).isRequired,
+  setCurrentUser: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = (state) => ({
   myUserObj: state.userReducer,
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return (
-    {
-      setCurrentUser : (userObj) => {
-        dispatch(addUser(userObj));
-      }
-    }
-  )
-}
+const mapDispatchToProps = (dispatch) => (
+  {
+    setCurrentUser: (userObj) => {
+      dispatch(addUser(userObj));
+    },
+  }
+);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Appointments);

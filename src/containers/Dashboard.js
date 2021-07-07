@@ -10,18 +10,20 @@ import MassageCard from '../components/MassageCard';
 import { logOutUser, getMassageTypes } from './Helpers/FetchMethods';
 
 const Dashboard = (props) => {
-  const { myUserObj, myMassageList, setCurrentUser, logoutCurrentUser, setCurrentMassageList } = props;
+  const {
+    myUserObj, myMassageList, setCurrentUser, logoutCurrentUser, setCurrentMassageList,
+  } = props;
 
   const [showMassageForm, setShowMassageForm] = useState(false);
 
-  const [ listErrorMessage, setListErrorMessage] = useState('Fetching Massge Types ...');
+  const [listErrorMessage, setListErrorMessage] = useState('Fetching Massge Types ...');
 
   const toggleShowMassageForm = () => {
     setShowMassageForm(!showMassageForm);
   };
 
   const handleLogout = () => {
-      logOutUser()
+    logOutUser()
       .then(() => {
         logoutCurrentUser();
         redirectToHome(props);
@@ -33,21 +35,18 @@ const Dashboard = (props) => {
 
   const fetchMassageTypes = () => {
     getMassageTypes()
-    .then((response) => {
-      setCurrentMassageList([...response.data]);
-    }).catch(() => {
-      setListErrorMessage('Something went wrong, Could not fetch massage types. Please try again later');
-    });
+      .then((response) => {
+        setCurrentMassageList([...response.data]);
+      }).catch(() => {
+        setListErrorMessage('Something went wrong, Could not fetch massage types. Please try again later');
+      });
   };
 
   useEffect(() => {
     if (myUserObj.loggedInStatus === 'NOT LOGGED IN') {
       fetchLoggedInStatus(props, fetchMassageTypes, setCurrentUser);
-    } 
-    else {
-      if (myMassageList.length === 0) {
-        fetchMassageTypes();
-      }
+    } else if (myMassageList.length === 0) {
+      fetchMassageTypes();
     }
   }, []);
 
@@ -103,13 +102,15 @@ const Dashboard = (props) => {
 
 Dashboard.propTypes = {
   myUserObj: PropTypes.instanceOf(Object).isRequired,
+  myMassageList: PropTypes.instanceOf(Array).isRequired,
   setCurrentUser: PropTypes.func.isRequired,
   logoutCurrentUser: PropTypes.func.isRequired,
+  setCurrentMassageList: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   myUserObj: state.userReducer,
-  myMassageList: state.massageReducer
+  myMassageList: state.massageReducer,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -121,7 +122,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
   setCurrentMassageList: (massageListArray) => {
     dispatch(addMassageList(massageListArray));
-  }
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

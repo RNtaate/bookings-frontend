@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { addUser } from '../../actions/index';
-import {logInUser} from '../Helpers/FetchMethods';
+import { logInUser } from '../Helpers/FetchMethods';
 
 const Login = (props) => {
   const [loginDetails, setLoginDetails] = useState({
@@ -25,26 +25,26 @@ const Login = (props) => {
       user: {
         username,
         password,
-      }
+      },
     })
-    .then((response) => {
-      props.setCurrentUser(response.data.user);
-      if (response.data.user) {
-        setLoginDetails({
-          username: '',
-          password: '',
-          errorMessage: '',
-        });
+      .then((response) => {
+        props.setCurrentUser(response.data.user);
+        if (response.data.user) {
+          setLoginDetails({
+            username: '',
+            password: '',
+            errorMessage: '',
+          });
 
-        props.redirect();
-      }
-    }).catch((e) => {
-      if (e.response.status === 403) {
-        setLoginDetails({ ...loginDetails, errorMessage: e.response.data.error });
-      } else {
-        setLoginDetails({ ...loginDetails, errorMessage: 'Network Error!, Please try again later' });
-      }
-    });
+          props.redirect();
+        }
+      }).catch((e) => {
+        if (e.response.status === 403) {
+          setLoginDetails({ ...loginDetails, errorMessage: e.response.data.error });
+        } else {
+          setLoginDetails({ ...loginDetails, errorMessage: 'Network Error!, Please try again later' });
+        }
+      });
   };
 
   return (

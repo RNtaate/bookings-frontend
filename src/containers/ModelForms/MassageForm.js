@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import API_URL from '../Helpers/HelperConstants';
 import { addMassageType } from '../../actions';
 import { createMassage } from '../Helpers/FetchMethods';
 
@@ -42,23 +40,20 @@ const MassageForm = (props) => {
     formData.append('massage_image', massageImage);
 
     createMassage(formData)
-    .then((response) => {
-      console.log(response)
-      if (response.data) {
-        updateCurrentMassageList(response.data)
-        props.handleShowMassageForm();
-      }
-    }).catch((e) => {
-      console.log(e.response);
-      if (e.response.status === 422) {
-        setLocalMassage(
-          { ...localMassage, createErrors: [...Object.entries(e.response.data.errors)] }
-        );          
-      }
-      else {
-        setLocalMassage({ ...localMassage, createErrors: [['NetWork Error! ', 'Something went wrong, please try again.']] });          
-      }
-    });
+      .then((response) => {
+        if (response.data) {
+          updateCurrentMassageList(response.data);
+          props.handleShowMassageForm();
+        }
+      }).catch((e) => {
+        if (e.response.status === 422) {
+          setLocalMassage(
+            { ...localMassage, createErrors: [...Object.entries(e.response.data.errors)] },
+          );
+        } else {
+          setLocalMassage({ ...localMassage, createErrors: [['NetWork Error! ', 'Something went wrong, please try again.']] });
+        }
+      });
   };
 
   return (
@@ -93,14 +88,13 @@ const MassageForm = (props) => {
 
 MassageForm.propTypes = {
   handleShowMassageForm: PropTypes.func.isRequired,
+  updateCurrentMassageList: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return ({
-    updateCurrentMassageList: (massageTypeObj) => {
-      dispatch(addMassageType(massageTypeObj));
-    }
-  })
-}
+const mapDispatchToProps = (dispatch) => ({
+  updateCurrentMassageList: (massageTypeObj) => {
+    dispatch(addMassageType(massageTypeObj));
+  },
+});
 
 export default connect(null, mapDispatchToProps)(MassageForm);
