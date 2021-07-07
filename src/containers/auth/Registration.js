@@ -55,6 +55,7 @@ const Registration = (props) => {
       <>
         <div>
           <button type="button" onClick={toggleShowRegForm}>Cancel</button>
+          <h2>Sign Up</h2>
           <ul>
             {
             userDetails.reg_errors.length !== 0
