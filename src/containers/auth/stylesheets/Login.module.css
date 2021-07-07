@@ -1,0 +1,70 @@
+.form_holder_div {
+  padding: 20px;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.15);
+  width: 30%;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+.form_holder_div > span {
+  color: white;
+  font-size: 1.5em;
+  position: absolute;
+  top: -15%;
+  right: 0;
+  cursor: pointer;
+}
+
+.form_holder_div > h2 {
+  color: white;
+  margin-bottom: 10px;
+}
+
+.error_message {
+  color: #df4759;
+  font-weight: 600;
+  font-size: 0.95em;
+  line-height: 1.5em;
+  letter-spacing: 0.5px;
+}
+
+.form_holder_div > ul {
+  list-style-type: none;
+}
+
+.form_holder_div > form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.form_holder_div > form > input,
+.form_holder_div > form > button {
+  border-radius: 20px;
+  padding: 10px 20px;
+  width: inherit;
+}
+
+.form_holder_div > form > input {
+  outline: none;
+  border: 1px solid white;
+  background-color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 10px;
+}
+
+.form_holder_div > form > button[type="submit"] {
+  outline: none;
+  border: 1px solid white;
+  background-color: white;
+  color: rgb(150,191,18);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.form_holder_div > form > button:hover {
+  background-color:rgb(150,191,18);
+  color: white;
+}

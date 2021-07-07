@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { signUpUser } from '../Helpers/FetchMethods';
+import * as loginStyler from './stylesheets/Login.module.css';
 
 const Registration = (props) => {
   const [userDetails, setUserDetails] = useState({
@@ -53,14 +54,14 @@ const Registration = (props) => {
   return (
     showRegForm ? (
       <>
-        <div>
-          <button type="button" onClick={toggleShowRegForm}>Cancel</button>
+        <div className={loginStyler.form_holder_div}>
+          <span onClick={toggleShowRegForm}><i class="far fa-times-circle"></i></span>
           <h2>Sign Up</h2>
           <ul>
             {
             userDetails.reg_errors.length !== 0
               ? userDetails.reg_errors.map((error) => (
-                <li key={userDetails.reg_errors.indexOf(error)}>
+                <li key={userDetails.reg_errors.indexOf(error)} className={loginStyler.error_message}>
                   {error[0]}
                   {' '}
                   {error[1]}

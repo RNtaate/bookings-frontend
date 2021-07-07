@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import { addUser } from '../../actions/index';
 import { logInUser } from '../Helpers/FetchMethods';
+import * as styler from './stylesheets/Login.module.css';
 
 const Login = (props) => {
 
@@ -51,10 +52,10 @@ const Login = (props) => {
   };
 
   return (
-    <div>
-      <button type='button' onClick={toggleShowLoginForm}>Cancel</button>
+    <div className={styler.form_holder_div}>
+      <span onClick={toggleShowLoginForm}><i class="far fa-times-circle"></i></span>
       <h2>Login</h2>
-      <p>{loginDetails.errorMessage}</p>
+      <p className={styler.error_message}>{loginDetails.errorMessage}</p>
       <form onSubmit={handleSubmit}>
         <input type="text" name="username" placeholder="Username" value={loginDetails.username} onChange={handleOnchange} required/>
         <input type="password" name="password" placeholder="Password" value={loginDetails.password} onChange={handleOnchange} required/>
