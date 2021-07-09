@@ -35,6 +35,10 @@
   color: rgb(150, 191, 18);
 }
 
+.home_div > button > i {
+  margin-left: 10px;
+}
+
 .sign_up_button {
   margin: 3em 0;
 }
