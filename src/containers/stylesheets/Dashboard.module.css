@@ -1,0 +1,7 @@
+.dashboard_massages_div {
+  overflow: auto;
+  height: 100vh;
+  max-height: 100vh;
+  flex: 80%;
+  border-left: 1px solid gray;
+}

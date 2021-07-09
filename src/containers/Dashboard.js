@@ -8,6 +8,8 @@ import MassageForm from './ModelForms/MassageForm';
 import { fetchLoggedInStatus, redirectToHome } from './Helpers/HelperMethods';
 import MassageCard from '../components/MassageCard';
 import { logOutUser, getMassageTypes } from './Helpers/FetchMethods';
+import Sidebar from '../components/Sidebar';
+import * as styles from './stylesheets/Dashboard.module.css';
 
 const Dashboard = (props) => {
   const {
@@ -55,17 +57,13 @@ const Dashboard = (props) => {
   }
 
   return (
-    <div>
+    <div className="main-section-div">
+      <Sidebar />
       {
         myUserObj.user ? (
-          <div className="dashboard_div">
+          <div className={styles.dashboard_massages_div}>
 
-            <h2>
-              Welcome
-              {' '}
-              {myUserObj.user.username}
-              !
-            </h2>
+            <h2>Massage Types</h2>
             <Link to="/appointments"><p><strong>My Appointments</strong></p></Link>
             <button type="button" onClick={handleLogout}>Logout</button>
             {
@@ -91,11 +89,11 @@ const Dashboard = (props) => {
                 ))
                 : listErrorMessage
             }
+            <p>Dashboard for Norp Massage Parlor</p>
           </div>
         )
           : null
       }
-      <p>Dashboard for Norp Massage Parlor</p>
     </div>
   );
 };
