@@ -24,6 +24,7 @@
 .form_holder_div > h2 {
   color: white;
   margin-bottom: 10px;
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 .error_message {
@@ -51,6 +52,7 @@
   border-radius: 20px;
   padding: 10px 20px;
   width: inherit;
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 .form_holder_div > form > input {
