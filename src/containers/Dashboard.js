@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { addUser, removeUser, addMassageList } from '../actions/index';
+import { addUser, addMassageList } from '../actions/index';
 import MassageForm from './ModelForms/MassageForm';
-import { fetchLoggedInStatus, redirectToHome } from './Helpers/HelperMethods';
+import { fetchLoggedInStatus } from './Helpers/HelperMethods';
 import MassageCard from '../components/MassageCard';
-import { logOutUser, getMassageTypes } from './Helpers/FetchMethods';
+import { getMassageTypes } from './Helpers/FetchMethods';
 import Sidebar from '../components/Sidebar';
 import * as styles from './stylesheets/Dashboard.module.css';
 
 const Dashboard = (props) => {
   const {
-    myUserObj, myMassageList, setCurrentUser, logoutCurrentUser, setCurrentMassageList,
+    myUserObj, myMassageList, setCurrentUser, setCurrentMassageList,
   } = props;
 
   const [showMassageForm, setShowMassageForm] = useState(false);
@@ -89,7 +88,6 @@ Dashboard.propTypes = {
   myUserObj: PropTypes.instanceOf(Object).isRequired,
   myMassageList: PropTypes.instanceOf(Array).isRequired,
   setCurrentUser: PropTypes.func.isRequired,
-  logoutCurrentUser: PropTypes.func.isRequired,
   setCurrentMassageList: PropTypes.func.isRequired,
 };
 
@@ -101,9 +99,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (userObj) => {
     dispatch(addUser(userObj));
-  },
-  logoutCurrentUser: () => {
-    dispatch(removeUser());
   },
   setCurrentMassageList: (massageListArray) => {
     dispatch(addMassageList(massageListArray));
