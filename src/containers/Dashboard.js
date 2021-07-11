@@ -9,6 +9,7 @@ import MassageCard from '../components/MassageCard';
 import { getMassageTypes } from './Helpers/FetchMethods';
 import Sidebar from '../components/Sidebar';
 import * as styles from './stylesheets/Dashboard.module.css';
+import * as homeStyles from './stylesheets/Home.module.css';
 
 const Dashboard = (props) => {
   const {
@@ -54,19 +55,23 @@ const Dashboard = (props) => {
             <h2>Massage Types</h2>
             {
               myUserObj.user.id === 1
-                ? <button type="button" onClick={toggleShowMassageForm}>Create New Massage Type</button>
+                ? <button type="button" onClick={toggleShowMassageForm} className={styles.add_massage_button}>
+                  <i className="fas fa-plus"></i>
+                </button>
                 : null
             }
 
             {/** This is the new massage form */}
-            {
-              showMassageForm
-                ? (
-                  <MassageForm
-                    handleShowMassageForm={toggleShowMassageForm}
-                  />
-                ) : null
-            }
+            <div className={homeStyles.hover_form_div} style={{ visibility: showMassageForm ? 'visible' : 'hidden', opacity: showMassageForm ? 1 : 0 }}>
+              {
+                showMassageForm
+                  ? (
+                    <MassageForm
+                      handleShowMassageForm={toggleShowMassageForm}
+                    />
+                  ) : null
+              }
+            </div>
 
             {
               myMassageList.length !== 0
