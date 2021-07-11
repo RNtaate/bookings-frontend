@@ -1,8 +1,12 @@
 .sidebar_div {
   flex: 20%;
+  max-width: 20%;
   position: relative;
   display: flex;
   flex-direction: column;
+  height: 100vh;
+  max-height: 100vh;
+  border-right: 1px solid #ddd;
 }
 
 .sidebar_header_div,
@@ -47,7 +51,7 @@
   color: #444;
 }
 
-.link > div:hover {
+.link > div:hover:not(.selected) {
   color: rgb(150, 191, 18);
 }
 
