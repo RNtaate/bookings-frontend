@@ -8,6 +8,14 @@
   padding: 0;
 }
 
+body {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
 .main-section-div {
   display: flex;
+}
+
+button {
+  font-family: 'Josefin Sans', sans-serif;
 }
