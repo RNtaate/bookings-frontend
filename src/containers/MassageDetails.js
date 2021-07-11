@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import AppointmentForm from './ModelForms/AppointmentForm';
 import { getMassageType } from './Helpers/FetchMethods';
+import Sidebar from '../components/Sidebar';
+import * as dashboardStyles from './stylesheets/Dashboard.module.css';
 
 const MassageDetails = (props) => {
   const [localMassage, setLocalMassage] = useState({
@@ -31,41 +33,46 @@ const MassageDetails = (props) => {
   }, []);
 
   return (
-    localMassage.massageData != null ? (
-      <div>
-        <div>
-          <img src={localMassage.massageData.massage_image.url} alt="" style={{ width: '500px', height: 'auto' }} />
-        </div>
-
-        <div>
-          <h4>{localMassage.massageData.name}</h4>
-          <p>{localMassage.massageData.description}</p>
-          <p>
-            Duration:
-            {localMassage.massageData.duration}
-            {' '}
-            minutes
-          </p>
-          <p>
-            Price: $
-            {localMassage.massageData.price}
-          </p>
-          <button type="button" onClick={toggleShowAppForm}>Book an appointment</button>
-        </div>
-
-        {
-        showAppForm
-          ? (
-            <AppointmentForm
-              propsObj={props}
-              massage={localMassage.massageData}
-              handleShowAppForm={toggleShowAppForm}
-            />
-          ) : null
+    <div className="main-section-div">
+      <Sidebar parentProps={props} />
+      {
+        localMassage.massageData != null ? (
+          <div className={dashboardStyles.massage_details_div}>
+            <div>
+              <img src={localMassage.massageData.massage_image.url} alt="" style={{ width: '500px', height: 'auto' }} />
+            </div>
+    
+            <div>
+              <h4>{localMassage.massageData.name}</h4>
+              <p>{localMassage.massageData.description}</p>
+              <p>
+                Duration:
+                {localMassage.massageData.duration}
+                {' '}
+                minutes
+              </p>
+              <p>
+                Price: $
+                {localMassage.massageData.price}
+              </p>
+              <button type="button" onClick={toggleShowAppForm}>Book an appointment</button>
+            </div>
+    
+            {
+            showAppForm
+              ? (
+                <AppointmentForm
+                  propsObj={props}
+                  massage={localMassage.massageData}
+                  handleShowAppForm={toggleShowAppForm}
+                />
+              ) : null
+          }
+    
+          </div>
+        ) : <p>{localMassage.errorMessage}</p>
       }
-
-      </div>
-    ) : <p>{localMassage.errorMessage}</p>
+    </div>
   );
 };
 

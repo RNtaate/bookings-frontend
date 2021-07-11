@@ -1,7 +1,8 @@
-.dashboard_massages_div {
+.dashboard_massages_div,
+.appointments_div,
+.massage_details_div {
   overflow: auto;
   height: 100vh;
   max-height: 100vh;
   flex: 80%;
-  border-left: 1px solid gray;
 }

@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { fetchLoggedInStatus } from './Helpers/HelperMethods';
 import { addUser } from '../actions';
 import { getAppointmentsList } from './Helpers/FetchMethods';
+import Sidebar from '../components/Sidebar';
+import * as dashboardStyles from './stylesheets/Dashboard.module.css'
 
 const Appointments = (props) => {
   const { myUserObj, setCurrentUser } = props;
@@ -35,36 +37,45 @@ const Appointments = (props) => {
     }
   }, []);
 
+  if (myUserObj.user == null) {
+    return (<p>Please wait while we verify your credentials ...</p>);
+  }
+
   return (
-    <div>
-      <h4 data-testid="appointments-test-heading">YOUR BOOKED APPOINTMENTS</h4>
-      {
-        localAppointments.appsList.length > 0
-          ? (
-            <table>
-              <thead>
-                <tr>
-                  <th>MASSAGE TYPE</th>
-                  <th>CITY</th>
-                  <th>DATE</th>
-                  <th>CUSTOMER NAME</th>
-                </tr>
-              </thead>
-              <tbody>
-                {localAppointments.appsList.map((app) => (
-                  <tr key={localAppointments.appsList.indexOf(app)}>
-                    <td>{app.massage_type}</td>
-                    <td>{app.city}</td>
-                    <td>{app.date}</td>
-                    <td>{app.customer_name}</td>
+    <div className="main-section-div">
+      <Sidebar parentProps={props} />
+      <div className={dashboardStyles.appointments_div}>
+        <h4 data-testid="appointments-test-heading">YOUR BOOKED APPOINTMENTS</h4>
+        {
+          localAppointments.appsList.length > 0
+            ? (
+              <table>
+                <thead>
+                  <tr>
+                    <th>MASSAGE TYPE</th>
+                    <th>CITY</th>
+                    <th>DATE</th>
+                    <th>CUSTOMER NAME</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          )
-          : <p>{localAppointments.errorMessage}</p>
-      }
+                </thead>
+                <tbody>
+                  {localAppointments.appsList.map((app) => (
+                    <tr key={localAppointments.appsList.indexOf(app)}>
+                      <td>{app.massage_type}</td>
+                      <td>{app.city}</td>
+                      <td>{app.date}</td>
+                      <td>{app.customer_name}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )
+            : <p>{localAppointments.errorMessage}</p>
+        }
+      </div>
+
     </div>
+
   );
 };
 
