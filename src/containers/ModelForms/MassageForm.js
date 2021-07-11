@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import { addMassageType } from '../../actions';
 import { createMassage } from '../Helpers/FetchMethods';
+import * as loginStyler from '../auth/stylesheets/Login.module.css';
+import * as styles from './stylesheets/MassageForm.module.css';
 
 const MassageForm = (props) => {
   const [localMassage, setLocalMassage] = useState({
@@ -57,17 +59,20 @@ const MassageForm = (props) => {
   };
 
   return (
-    <div>
-      <h3>New Massage Type</h3>
+    <div className={loginStyler.form_holder_div}>
+      <button type="button" onClick={handleShowMassageForm} className={loginStyler.cancel_form_button}>
+        <i className="far fa-times-circle" />
+      </button>
+      <h2>New Massage Type</h2>
 
       <ul>
         {
           localMassage.createErrors.length > 0
             ? localMassage.createErrors.map((error) => (
-              <li key={localMassage.createErrors.indexOf(error)}>
+              <li key={localMassage.createErrors.indexOf(error)} className={loginStyler.error_message}>
                 {error[0]}
                 {' '}
-                {error[1]}
+                {error[1]}.
               </li>
             )) : null
         }
@@ -75,13 +80,12 @@ const MassageForm = (props) => {
 
       <form onSubmit={handleSubmit}>
         <input type="text" name="name" placeholder="Name of Massage" required onChange={handleOnChange} value={localMassage.name} />
-        <textarea name="description" placeholder="Massage Description" onChange={handleOnChange} required value={localMassage.description} />
+        <textarea name="description" placeholder="Massage Description" onChange={handleOnChange} required value={localMassage.description} className={styles.massage_textarea} resizable="false" />
         <input type="number" name="price" placeholder="Price" onChange={handleOnChange} required />
         <input type="number" name="duration" placeholder="Duration in minutes" onChange={handleOnChange} required />
         <input type="file" multiple={false} accept="image/*" required onChange={handleOnImageChange} />
         <button type="submit">Create Massage Type</button>
       </form>
-      <button type="button" onClick={handleShowMassageForm}>Cancel</button>
     </div>
   );
 };
