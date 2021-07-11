@@ -19,7 +19,7 @@ function Sidebar(props) {
     {
       title: 'MASSAGES',
       pathname: '/',
-      match: 'massages',
+      match: 'massage',
     },
     {
       title: 'APPOINTMENTS',
@@ -43,7 +43,7 @@ function Sidebar(props) {
     <div className={styles.sidebar_div}>
       <div className={styles.sidebar_header_div}>
         <h2>Norp</h2>
-        <h3>Hi, {myUserObj.user.username}</h3>
+        {myUserObj.user !== null ? <h3>Hi, {myUserObj.user.username}</h3> : null}
       </div>
 
       <div className={styles.sidebar_middle_div}>
