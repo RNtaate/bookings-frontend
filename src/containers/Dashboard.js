@@ -24,17 +24,6 @@ const Dashboard = (props) => {
     setShowMassageForm(!showMassageForm);
   };
 
-  const handleLogout = () => {
-    logOutUser()
-      .then(() => {
-        logoutCurrentUser();
-        redirectToHome(props);
-      }).catch(() => {
-        setCurrentMassageList([]);
-        setListErrorMessage("Sorry couldn't logout smoothly, Please refresh and try again");
-      });
-  };
-
   const fetchMassageTypes = () => {
     getMassageTypes()
       .then((response) => {
@@ -58,14 +47,12 @@ const Dashboard = (props) => {
 
   return (
     <div className="main-section-div">
-      <Sidebar />
+      <Sidebar parentProps={props}/>
       {
         myUserObj.user ? (
           <div className={styles.dashboard_massages_div}>
 
             <h2>Massage Types</h2>
-            <Link to="/appointments"><p><strong>My Appointments</strong></p></Link>
-            <button type="button" onClick={handleLogout}>Logout</button>
             {
               myUserObj.user.id === 1
                 ? <button type="button" onClick={toggleShowMassageForm}>Create New Massage Type</button>
