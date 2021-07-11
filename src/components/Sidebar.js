@@ -12,14 +12,19 @@ function Sidebar(props) {
 
   let [logoutErrorMessage, setLogoutErrorMessage] = useState("")
 
+  let currentPath = window.location.pathname;
+  let pathArray = currentPath.split('/');
+
   const sideBarLinks = [
     {
-      title: 'Massages',
-      pathname: '/'
+      title: 'MASSAGES',
+      pathname: '/',
+      match: 'massages',
     },
     {
-      title: 'Appointments',
-      pathname: '/appointments'
+      title: 'APPOINTMENTS',
+      pathname: '/appointments',
+      match: 'appointments',
     }
   ]
 
@@ -36,21 +41,43 @@ function Sidebar(props) {
 
   return (
     <div className={styles.sidebar_div}>
-      <h2>Norp Massage Parlor</h2>
-      <h3>Hi, {myUserObj.user.username}</h3>
+      <div className={styles.sidebar_header_div}>
+        <h2>Norp</h2>
+        <h3>Hi, {myUserObj.user.username}</h3>
+      </div>
 
-      <ul>
-        {
-          sideBarLinks.map( (singleLink) => {
-            return (
-              <li key={sideBarLinks.indexOf(singleLink)}><Link to={singleLink.pathname}><div>{singleLink.title}</div></Link></li>
-            )
-          })
-        }
-      </ul>
+      <div className={styles.sidebar_middle_div}>
+        <ul>
+          {
+            sideBarLinks.map( (singleLink) => {
+              return (
+                <li key={sideBarLinks.indexOf(singleLink)}>
+                  <Link to={singleLink.pathname} className={styles.link}>
+                    <div className={(singleLink.pathname === currentPath) || (pathArray.includes(singleLink.match)) ? styles.selected : ''}>
+                      {singleLink.title}
+                    </div>
+                  </Link>
+                </li>
+              )
+            })
+          }
+        </ul>
 
-      <button type="button" onClick={handleLogout}>Logout</button>
-      <p>{logoutErrorMessage}</p>
+        <button type="button" onClick={handleLogout} className={styles.sidebar_logout_button}>LOGOUT <i className="fas fa-sign-out-alt"></i></button>
+        <p>{logoutErrorMessage}</p>
+      </div>
+
+      <div className={styles.sidebar_footer_div}>
+        <div className={styles.icons_div}>
+          <i className="fab fa-twitter"></i>
+          <i className="fab fa-facebook-f"></i>
+          <i className="fab fa-google-plus-g"></i>
+          <i className="fab fa-vimeo-v"></i>
+          <i className="fab fa-pinterest-p"></i>
+        </div>
+        <p>&copy; 2021 Norp Massage Parlor</p>
+      </div>
+
     </div>
   )
 }
