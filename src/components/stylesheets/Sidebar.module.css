@@ -1,3 +1,97 @@
 .sidebar_div {
   flex: 20%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar_header_div,
+.sidebar_middle_div {
+  padding-left: 10px;
+}
+
+.sidebar_header_div {
+  margin-bottom: 80px;
+  padding-top: 20px;
+}
+
+.sidebar_header_div > h2,
+.sidebar_header_div > h3 {
+  padding-left: 10px;
+}
+
+.sidebar_header_div > h2 {
+  color: #444;
+  margin-bottom: 30px;
+  font-size: 2em;
+}
+
+.sidebar_header_div > h3 {
+  font-size: 1em;
+  color: #777;
+  font-weight: 500;
+}
+
+.sidebar_middle_div > ul {
+  list-style-type: none;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.link > div {
+  font-size: 0.9em;
+  padding: 15px 0 15px 10px;
+  font-weight: 600;
+  color: #444;
+}
+
+.link > div:hover {
+  color: rgb(150, 191, 18);
+}
+
+div.selected {
+  background-color: rgb(150, 191, 18);
+  color: white;
+}
+
+.sidebar_logout_button {
+  width: 100%;
+  padding: 10px 0 10px 10px;
+  border: none;
+  text-align: left;
+  font-weight: bold;
+  color: #444;
+  background-color: white;
+}
+
+.sidebar_logout_button:hover {
+  cursor: pointer;
+  color:  rgb(150, 191, 18);
+}
+
+.sidebar_logout_button > i {
+  margin-left: 10px;
+}
+
+.sidebar_footer_div {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 0 15px 20px 20px;
+  color: #555;
+}
+
+.icons_div {
+  padding: 10px 0;
+}
+
+.icons_div > i {
+  margin-right: 0.8em;
+}
+
+.sidebar_footer_div > p {
+  font-size: 0.7em;
+  font-weight: 600;
 }
