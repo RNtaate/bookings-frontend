@@ -7,6 +7,13 @@
   flex: 80%;
 }
 
+.dashboard_massages_div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .add_massage_button {
   position: fixed;
   bottom: 30px;

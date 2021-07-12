@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Carousel from 'react-elastic-carousel';
 
 import { addUser, addMassageList } from '../actions/index';
 import MassageForm from './ModelForms/MassageForm';
@@ -19,6 +20,11 @@ const Dashboard = (props) => {
   const [showMassageForm, setShowMassageForm] = useState(false);
 
   const [listErrorMessage, setListErrorMessage] = useState('Fetching Massge Types ...');
+
+  const breakPoints = [
+    {width: 1, itemsToShow: 1},
+    {width: 500, itemsToShow: 2}
+  ]
 
   const toggleShowMassageForm = () => {
     setShowMassageForm(!showMassageForm);
@@ -73,11 +79,14 @@ const Dashboard = (props) => {
               }
             </div>
 
+            {/*These are the dashboard massage cards*/}
             {
               myMassageList.length !== 0
-                ? myMassageList.map((massage) => (
+                ? <Carousel easing="ease" tiltEasing="ease" breakPoints={breakPoints}>
+                  {myMassageList.map((massage) => (
                   <MassageCard massageObj={massage} key={massage.id} />
-                ))
+                ))}
+                </Carousel>
                 : listErrorMessage
             }
             <p>Dashboard for Norp Massage Parlor</p>
