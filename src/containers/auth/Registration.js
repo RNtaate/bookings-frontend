@@ -47,12 +47,16 @@ const Registration = (props) => {
         }
       }).catch((e) => {
         setLoading(null);
-        if (e.response.status === 422) {
-          setUserDetails(
-            { ...userDetails, reg_errors: [...Object.entries(e.response.data.errors)] },
-          );
-        } else {
-          setUserDetails({ ...userDetails, reg_errors: [['NetWork Error! ', 'Something went wrong, please try again.']] });
+        if(e.response) {
+          if (e.response.status === 422) {
+            setUserDetails(
+              { ...userDetails, reg_errors: [...Object.entries(e.response.data.errors)] },
+            );
+          } else {
+            setUserDetails({ ...userDetails, reg_errors: [['NetWork Error! ', 'Something went wrong, please try again.']] });
+          }
+        }else{
+          setUserDetails({ ...userDetails, reg_errors: [['NetWork Error! ', 'Something went wrong, please try again.']] });          
         }
       });
   };

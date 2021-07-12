@@ -48,10 +48,14 @@ const Login = (props) => {
         }
       }).catch((e) => {
         setLoading(null);
-        if (e.response.status === 403) {
-          setLoginDetails({ ...loginDetails, errorMessage: e.response.data.error });
-        } else {
-          setLoginDetails({ ...loginDetails, errorMessage: 'Network Error!, Please try again later' });
+        if (e.response) {
+          if (e.response.status === 403) {
+            setLoginDetails({ ...loginDetails, errorMessage: e.response.data.error });
+          } else {
+            setLoginDetails({ ...loginDetails, errorMessage: 'Network Error!, Please try again later' });
+          }
+        }else {
+          setLoginDetails({ ...loginDetails, errorMessage: 'Network Error!, Please try again later' });          
         }
       });
   };
