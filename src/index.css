@@ -48,3 +48,9 @@ button {
   background-color: rgba(150, 191, 18, 0.5);
   box-shadow: 0 0 1px 3px rgb(150, 191, 18);
 }
+
+.rec.ejXxNI:hover,
+.rec.ejXxNI:focus {
+  cursor: pointer;
+  box-shadow: 0 0 1px 3px rgb(150, 191, 18);
+}
