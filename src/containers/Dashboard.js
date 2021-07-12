@@ -58,7 +58,11 @@ const Dashboard = (props) => {
         myUserObj.user ? (
           <div className={styles.dashboard_massages_div}>
 
-            <h2>Massage Types</h2>
+            <div className={styles.dashboard_heading_div}>
+              <h2>MASSAGE TYPES</h2>
+              <p>Please select a massage type</p>
+              <div>{''}</div>
+            </div>
             {
               myUserObj.user.id === 1
                 ? <button type="button" onClick={toggleShowMassageForm} className={styles.add_massage_button}>
@@ -82,14 +86,16 @@ const Dashboard = (props) => {
             {/*These are the dashboard massage cards*/}
             {
               myMassageList.length !== 0
-                ? <Carousel easing="ease" tiltEasing="ease" breakPoints={breakPoints}>
-                  {myMassageList.map((massage) => (
-                  <MassageCard massageObj={massage} key={massage.id} />
-                ))}
-                </Carousel>
+                ? 
+                <div className={styles.massage_carousel_div}>
+                  <Carousel easing="ease" tiltEasing="ease" breakPoints={breakPoints}>
+                    {myMassageList.map((massage) => (
+                    <MassageCard massageObj={massage} key={massage.id} />
+                  ))}
+                  </Carousel>
+                </div>
                 : listErrorMessage
             }
-            <p>Dashboard for Norp Massage Parlor</p>
           </div>
         )
           : null
