@@ -19,3 +19,32 @@ body {
 button {
   font-family: 'Josefin Sans', sans-serif;
 }
+
+/*Styling for react-elastic-carousel element classes below*/
+
+.rec.cGKbZh,
+.rec.ehkxHv {
+  border-radius: 0;
+}
+
+.rec.rec-arrow-right {
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
+.rec.rec-arrow-left {
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+
+.rec.cGKbZh:hover:enabled,
+.rec.cGKbZh:focus:enabled {
+  background-color: rgb(150, 191, 18);
+  color: #fff;
+  box-shadow: 0 0 2px 0 #333;
+}
+
+.rec.ejXxNI {
+  background-color: rgba(150, 191, 18, 0.5);
+  box-shadow: 0 0 1px 3px rgb(150, 191, 18);
+}
