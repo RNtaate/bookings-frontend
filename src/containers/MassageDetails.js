@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import AppointmentForm from './ModelForms/AppointmentForm';
 import { getMassageType } from './Helpers/FetchMethods';
 import Sidebar from '../components/Sidebar';
 import * as dashboardStyles from './stylesheets/Dashboard.module.css';
+import * as styles from './stylesheets/MassageDetails.module.css';
 
 const MassageDetails = (props) => {
   const [localMassage, setLocalMassage] = useState({
@@ -37,25 +39,26 @@ const MassageDetails = (props) => {
       <Sidebar parentProps={props} />
       {
         localMassage.massageData != null ? (
-          <div className={dashboardStyles.massage_details_div}>
-            <div>
-              <img src={localMassage.massageData.massage_image.url} alt="" style={{ width: '500px', height: 'auto' }} />
+          <div className={`${dashboardStyles.massage_details_div} ${styles.massage_details_div}`}>
+            <div className={styles.massage_image_div} style={{backgroundImage: `url(${localMassage.massageData.massage_image.url})`}}>
             </div>
     
-            <div>
-              <h4>{localMassage.massageData.name}</h4>
-              <p>{localMassage.massageData.description}</p>
-              <p>
-                Duration:
-                {localMassage.massageData.duration}
-                {' '}
-                minutes
-              </p>
-              <p>
-                Price: $
-                {localMassage.massageData.price}
-              </p>
-              <button type="button" onClick={toggleShowAppForm}>Book an appointment</button>
+            <div className={styles.massage_description_div}>
+
+              <div className={styles.massage_desc_content_div}>
+                <h4>{localMassage.massageData.name}</h4>
+                <p>{localMassage.massageData.description}</p>
+                <span>
+                  <p>Duration in minutes:</p>
+                  {localMassage.massageData.duration}
+                </span>
+                <span className={styles.massage_price}>
+                  <p>Price:</p>
+                  {`$${localMassage.massageData.price}`}
+                </span>
+              </div>
+
+              <button type="button" onClick={toggleShowAppForm} className={styles.book_appointment_button}>Book an appointment</button>
             </div>
     
             {
@@ -67,7 +70,9 @@ const MassageDetails = (props) => {
                   handleShowAppForm={toggleShowAppForm}
                 />
               ) : null
-          }
+            }
+
+            <Link to='/' className={styles.back_link}><span><i className="fas fa-chevron-left"></i></span></Link>
     
           </div>
         ) : <p>{localMassage.errorMessage}</p>
