@@ -1,0 +1,40 @@
+.appForm_select_div {
+  width: 100%;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.appForm_select_div > select {
+  width: 100%;
+  background-color: transparent;
+  outline: none;
+  border: 1px solid white;
+  padding: 10px 20px;
+  border-radius: 30px;
+}
+
+.appForm_select_div > div {
+  width: 3em;
+  height: 100%;
+  background-color: rgba(105, 133, 15);
+  position: absolute;
+  right: 0;
+  top: 0;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  pointer-events: none;
+  border: 1px solid white;
+  border-left: none;
+}
+
+.appForm_select_div > div::after {
+  --borderSize: 5px;
+  content: "";
+  border-top: var(--borderSize) solid white;
+  border-left: var(--borderSize) solid transparent;
+  border-right: var(--borderSize) solid transparent;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-110%, -50%);
+}
