@@ -5,6 +5,7 @@ import AppointmentForm from './ModelForms/AppointmentForm';
 import { getMassageType } from './Helpers/FetchMethods';
 import Sidebar from '../components/Sidebar';
 import * as dashboardStyles from './stylesheets/Dashboard.module.css';
+import * as homeStyles from './stylesheets/Home.module.css';
 import * as styles from './stylesheets/MassageDetails.module.css';
 
 const MassageDetails = (props) => {
@@ -61,16 +62,18 @@ const MassageDetails = (props) => {
               <button type="button" onClick={toggleShowAppForm} className={styles.book_appointment_button}>Book an appointment</button>
             </div>
     
-            {
-            showAppForm
-              ? (
-                <AppointmentForm
-                  propsObj={props}
-                  massage={localMassage.massageData}
-                  handleShowAppForm={toggleShowAppForm}
-                />
-              ) : null
-            }
+            <div className={homeStyles.hover_form_div} style={{ visibility: showAppForm ? 'visible' : 'hidden', opacity: showAppForm ? 1 : 0 }}>
+              {
+              showAppForm
+                ? (
+                    <AppointmentForm
+                      propsObj={props}
+                      massage={localMassage.massageData}
+                      handleShowAppForm={toggleShowAppForm}
+                    />
+                ) : null
+              }
+            </div>
 
             <Link to='/' className={styles.back_link}><span><i className="fas fa-chevron-left"></i></span></Link>
     
