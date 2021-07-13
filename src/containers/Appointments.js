@@ -7,6 +7,7 @@ import { addUser } from '../actions';
 import { getAppointmentsList } from './Helpers/FetchMethods';
 import Sidebar from '../components/Sidebar';
 import * as dashboardStyles from './stylesheets/Dashboard.module.css'
+import * as styles from './stylesheets/Appointments.module.css';
 
 const Appointments = (props) => {
   const { myUserObj, setCurrentUser } = props;
@@ -44,12 +45,12 @@ const Appointments = (props) => {
   return (
     <div className="main-section-div">
       <Sidebar parentProps={props} />
-      <div className={dashboardStyles.appointments_div}>
-        <h4 data-testid="appointments-test-heading">YOUR BOOKED APPOINTMENTS</h4>
+      <div className={`${dashboardStyles.appointments_div} ${styles.appointments_div}`}>
+        <h4 data-testid="appointments-test-heading" className={styles.appointments_heading_h4}>YOUR BOOKED APPOINTMENTS</h4>
         {
           localAppointments.appsList.length > 0
             ? (
-              <table>
+              <table className={styles.appointments_table}>
                 <thead>
                   <tr>
                     <th>MASSAGE TYPE</th>
@@ -70,7 +71,7 @@ const Appointments = (props) => {
                 </tbody>
               </table>
             )
-            : <p>{localAppointments.errorMessage}</p>
+            : <p className={styles.appointments_error_p}>{localAppointments.errorMessage}</p>
         }
       </div>
 
