@@ -41,11 +41,13 @@
   font-weight: 600;
   text-align: end;
   margin-bottom: 1em;
+  color: #444;
 }
 
 .massage_desc_content_div > p,
 .massage_desc_content_div > span {
   padding: 10px;
+  color: #444;
 }
 
 .massage_desc_content_div > p,
