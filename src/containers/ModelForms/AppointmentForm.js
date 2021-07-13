@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { createDateToday, fetchLoggedInStatus } from '../Helpers/HelperMethods';
 import { addUser } from '../../actions/index';
 import { createAppointment } from '../Helpers/FetchMethods';
+import * as loginStyles from '../auth/stylesheets/Login.module.css';
+import * as styles from './stylesheets/AppointmentForm.module.css';
 
 const AppointmentForm = (props) => {
   const cities = ['Kampala', 'Arua', 'Gayaza', 'New York', 'Dehli', 'Lagos'];
@@ -63,16 +65,24 @@ const AppointmentForm = (props) => {
   }, []);
 
   return (
-    <div>
+    <div className={loginStyles.form_holder_div}>
+      <button type="button" onClick={handleShowAppForm} className={loginStyles.cancel_form_button}>
+        <i className="far fa-times-circle" />
+      </button>
       <p>{errorMessage}</p>
       <form onSubmit={handleSubmit}>
         <input type="date" name="date" placeholder="Preferred Date" onChange={handleOnChange} min={createDateToday()} required value={localApt.date} />
-        <select name="city" onChange={handleOnChange} value={localApt.city}>
-          {cities.map((city) => <option key={cities.indexOf(city)}>{city}</option>)}
-        </select>
-        <button type="submit" data-testid="appointmentFormSubmitButton">Create Appointment</button>
+
+        <div className={styles.appForm_select_div}>
+          <select name="city" onChange={handleOnChange} value={localApt.city}>
+            {cities.map((city) => <option key={cities.indexOf(city)}>{city}</option>)}
+          </select>
+          <div></div>
+        </div>
+
+
+        <button type="submit" data-testid="appointmentFormSubmitButton">Book Now</button>
       </form>
-      <button type="button" onClick={handleShowAppForm}>Cancel</button>
     </div>
   );
 };
