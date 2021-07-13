@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import { fetchLoggedInStatus } from './Helpers/HelperMethods';
 import { addUser } from '../actions';
 import { getAppointmentsList } from './Helpers/FetchMethods';
 import Sidebar from '../components/Sidebar';
 import * as dashboardStyles from './stylesheets/Dashboard.module.css'
+import * as massageDetailsStyles from './stylesheets/MassageDetails.module.css';
 import * as styles from './stylesheets/Appointments.module.css';
 
 const Appointments = (props) => {
@@ -73,6 +75,8 @@ const Appointments = (props) => {
             )
             : <p className={styles.appointments_error_p}>{localAppointments.errorMessage}</p>
         }
+
+        <Link to='/' className={massageDetailsStyles.back_link}><span><i className="fas fa-chevron-left"></i></span></Link>
       </div>
 
     </div>
