@@ -88,7 +88,7 @@ const Dashboard = (props) => {
               myMassageList.length !== 0
                 ? 
                 <div className={styles.massage_carousel_div}>
-                  <Carousel easing="ease" tiltEasing="ease" breakPoints={breakPoints}>
+                  <Carousel easing="ease" tiltEasing="ease" breakPoints={breakPoints} pagination={false}>
                     {myMassageList.map((massage) => (
                     <MassageCard massageObj={massage} key={massage.id} />
                   ))}
