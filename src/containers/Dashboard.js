@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Carousel from 'react-elastic-carousel';
 
 import { addUser, addMassageList } from '../actions/index';
 import MassageForm from './ModelForms/MassageForm';
@@ -19,6 +20,11 @@ const Dashboard = (props) => {
   const [showMassageForm, setShowMassageForm] = useState(false);
 
   const [listErrorMessage, setListErrorMessage] = useState('Fetching Massge Types ...');
+
+  const breakPoints = [
+    {width: 1, itemsToShow: 1},
+    {width: 500, itemsToShow: 2}
+  ]
 
   const toggleShowMassageForm = () => {
     setShowMassageForm(!showMassageForm);
@@ -52,7 +58,11 @@ const Dashboard = (props) => {
         myUserObj.user ? (
           <div className={styles.dashboard_massages_div}>
 
-            <h2>Massage Types</h2>
+            <div className={styles.dashboard_heading_div}>
+              <h2>MASSAGE TYPES</h2>
+              <p>Please select a massage type</p>
+              <div>{''}</div>
+            </div>
             {
               myUserObj.user.id === 1
                 ? <button type="button" onClick={toggleShowMassageForm} className={styles.add_massage_button}>
@@ -73,14 +83,19 @@ const Dashboard = (props) => {
               }
             </div>
 
+            {/*These are the dashboard massage cards*/}
             {
               myMassageList.length !== 0
-                ? myMassageList.map((massage) => (
-                  <MassageCard massageObj={massage} key={massage.id} />
-                ))
+                ? 
+                <div className={styles.massage_carousel_div}>
+                  <Carousel easing="ease" tiltEasing="ease" breakPoints={breakPoints} pagination={false}>
+                    {myMassageList.map((massage) => (
+                    <MassageCard massageObj={massage} key={massage.id} />
+                  ))}
+                  </Carousel>
+                </div>
                 : listErrorMessage
             }
-            <p>Dashboard for Norp Massage Parlor</p>
           </div>
         )
           : null
