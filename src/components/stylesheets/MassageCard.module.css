@@ -4,16 +4,79 @@
   margin-top: 10px;
 }
 
+.massageCard_link {
+  text-decoration: none;
+}
+
 .massageCard_inner_div {
-  height: 200px;
+  height: 320px;
   width: 100%;
   display: flex;
   flex-direction: column;
 }
 
 .massageCard_poster_div {
-  height: 80%;
+  --per: 55%;
+  height: var(--per);
+  max-height: var(--per);
+  min-height: var(--per);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+.massageCard_caption_div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  color: black;
+  padding-top: 20px;
+  color: #aaa;
+}
+
+.seperator_div {
+  width: 40%;
+  border: 1px dotted #ddd;
+}
+
+.massageCard_caption_div > h2{
+  font-size: 0.9em;
+  text-transform: uppercase;
+  color: #333;
+}
+
+.massageCard_caption_div > p {
+  word-break: break-all;
+  text-align: center;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 20px;
+  font-size: 0.8em;
+}
+
+.massageCard_icons_div,
+.massageCard_icons_div > span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.massageCard_icons_div {
+  width: 100%;
+}
+
+.massageCard_icons_div > span {
+  border: 2px solid #ddd;
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+  color: #ddd;
+}
+
+.massageCard_icons_div > span:nth-child(2) {
+  margin: 0 20px;
 }
