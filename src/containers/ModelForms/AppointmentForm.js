@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { createDateToday, fetchLoggedInStatus } from '../Helpers/HelperMethods';
+import { createDateToday } from '../Helpers/HelperMethods';
 import { addUser } from '../../actions/index';
-import { createAppointment } from '../Helpers/FetchMethods';
+import { createAppointment, fetchLoggedInStatus } from '../Helpers/FetchMethods';
 import * as loginStyles from '../auth/stylesheets/Login.module.css';
 import * as styles from './stylesheets/AppointmentForm.module.css';
 

@@ -1,6 +1,3 @@
-import axios from 'axios';
-import API_URL from './HelperConstants';
-
 export const createDateToday = () => {
   const some = new Date(Date.now());
   let dateString = [];
@@ -20,18 +17,4 @@ export const createDateToday = () => {
 
 export const redirectToHome = (props) => {
   props.history.push('/home');
-};
-
-export const fetchLoggedInStatus = (props, funcInResponse = () => {}, setUserStateFunc) => {
-  axios.get(`${API_URL}/show`, { withCredentials: true })
-    .then((response) => {
-      if (response.data.logged_in) {
-        setUserStateFunc(response.data.user);
-        funcInResponse();
-      } else {
-        redirectToHome(props);
-      }
-    }).catch(() => {
-      redirectToHome(props);
-    });
 };

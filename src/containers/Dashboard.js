@@ -5,9 +5,8 @@ import Carousel from 'react-elastic-carousel';
 
 import { addUser, addMassageList } from '../actions/index';
 import MassageForm from './ModelForms/MassageForm';
-import { fetchLoggedInStatus } from './Helpers/HelperMethods';
 import MassageCard from '../components/MassageCard';
-import { getMassageTypes } from './Helpers/FetchMethods';
+import { getMassageTypes, fetchLoggedInStatus } from './Helpers/FetchMethods';
 import Sidebar from '../components/Sidebar';
 import * as styles from './stylesheets/Dashboard.module.css';
 import * as homeStyles from './stylesheets/Home.module.css';

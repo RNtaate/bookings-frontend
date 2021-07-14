@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { fetchLoggedInStatus } from './Helpers/HelperMethods';
 import { addUser } from '../actions';
-import { getAppointmentsList } from './Helpers/FetchMethods';
+import { getAppointmentsList, fetchLoggedInStatus } from './Helpers/FetchMethods';
 import Sidebar from '../components/Sidebar';
 import * as dashboardStyles from './stylesheets/Dashboard.module.css'
 import * as massageDetailsStyles from './stylesheets/MassageDetails.module.css';

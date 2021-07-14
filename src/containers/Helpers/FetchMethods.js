@@ -1,5 +1,6 @@
 import axios from 'axios';
 import API_URL from './HelperConstants';
+import { redirectToHome } from './HelperMethods';
 
 const usingAxios = (endpoint, method, dataObj = null) => {
   switch (method) {
@@ -51,3 +52,17 @@ export const logOutUser = () => usingAxios('destroy', 'delete');
 export const getMassageTypes = () => usingAxios('massages', 'get');
 
 export const getMassageType = (id) => usingAxios(`massages/${id}`, 'get');
+
+export const fetchLoggedInStatus = (props, funcInResponse = () => {}, setUserStateFunc) => {
+  axios.get(`${API_URL}/show`, { withCredentials: true })
+    .then((response) => {
+      if (response.data.logged_in) {
+        setUserStateFunc(response.data.user);
+        funcInResponse();
+      } else {
+        redirectToHome(props);
+      }
+    }).catch(() => {
+      redirectToHome(props);
+    });
+};
