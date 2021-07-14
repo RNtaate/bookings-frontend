@@ -18,8 +18,8 @@ const MassageCard = (props) => {
             <p>{massage.description}</p>
             <div className={styles.massageCard_icons_div}>
               <span><i className="fab fa-facebook-f"></i></span>
-              <span><i class="fab fa-twitter"></i></span>
-              <span><i class="fab fa-pinterest-p"></i></span>
+              <span><i className="fab fa-twitter"></i></span>
+              <span><i className="fab fa-pinterest-p"></i></span>
             </div>
           </div>
         </div>
