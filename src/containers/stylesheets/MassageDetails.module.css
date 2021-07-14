@@ -7,6 +7,7 @@
 
 .massage_image_div {
   --size: 50%;
+
   flex: var(--size);
   width: var(--size);
   min-width: var(--size);
@@ -20,6 +21,7 @@
 
 .massage_description_div {
   --descSize: 35%;
+
   flex: var(--descSize);
   max-width: var(--descSize);
   min-width: var(--descSize);
@@ -75,7 +77,7 @@
 }
 
 .book_appointment_button:hover {
-  color:rgb(150, 191, 18);
+  color: rgb(150, 191, 18);
   background-color: white;
 }
 
@@ -87,7 +89,7 @@
   position: fixed;
   bottom: 10%;
   left: 20%;
-  background-color:rgb(150, 191, 18);
+  background-color: rgb(150, 191, 18);
   border: 2px solid rgb(150, 191, 18);
   border-left: none;
   color: white;
@@ -102,6 +104,6 @@
 }
 
 .back_link > span:hover {
-  color:rgb(150, 191, 18);
+  color: rgb(150, 191, 18);
   background-color: white;
 }

@@ -30,6 +30,7 @@
 
 .appForm_select_div > div::after {
   --borderSize: 5px;
+
   content: "";
   border-top: var(--borderSize) solid white;
   border-left: var(--borderSize) solid transparent;

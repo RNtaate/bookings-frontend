@@ -72,7 +72,7 @@ div.selected {
 
 .sidebar_logout_button:hover {
   cursor: pointer;
-  color:  rgb(150, 191, 18);
+  color: rgb(150, 191, 18);
 }
 
 .sidebar_logout_button > i {

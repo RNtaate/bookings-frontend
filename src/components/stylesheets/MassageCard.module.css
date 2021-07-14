@@ -17,6 +17,7 @@
 
 .massageCard_poster_div {
   --per: 55%;
+
   height: var(--per);
   max-height: var(--per);
   min-height: var(--per);
@@ -31,7 +32,6 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  color: black;
   padding-top: 20px;
   color: #aaa;
 }
@@ -41,7 +41,7 @@
   border: 1px dotted #ddd;
 }
 
-.massageCard_caption_div > h2{
+.massageCard_caption_div > h2 {
   font-size: 0.9em;
   text-transform: uppercase;
   color: #333;
