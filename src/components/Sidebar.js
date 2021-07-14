@@ -6,6 +6,7 @@ import * as styles from './stylesheets/Sidebar.module.css';
 import { addMassageList, removeUser } from '../actions';
 import { logOutUser } from '../containers/Helpers/FetchMethods';
 import { redirectToHome } from '../containers/Helpers/HelperMethods';
+import logo from '../assets/norp_vespa.png';
 
 function Sidebar(props) {
   const {
@@ -44,7 +45,7 @@ function Sidebar(props) {
   return (
     <div className={styles.sidebar_div}>
       <div className={styles.sidebar_header_div}>
-        <h2>Norp</h2>
+        <img src={logo} alt="" className={styles.logo_img} />
         {myUserObj.user !== null ? (
           <h3>
             Hi,
