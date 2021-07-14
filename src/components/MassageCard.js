@@ -14,12 +14,12 @@ const MassageCard = (props) => {
           <div className={styles.massageCard_poster_div} style={{ backgroundImage: `url(${massage.massage_image.url})` }} />
           <div className={styles.massageCard_caption_div}>
             <h2>{massage.name}</h2>
-            <div className={styles.seperator_div}>{''}</div>
+            <div className={styles.seperator_div} />
             <p>{massage.description}</p>
             <div className={styles.massageCard_icons_div}>
-              <span><i className="fab fa-facebook-f"></i></span>
-              <span><i className="fab fa-twitter"></i></span>
-              <span><i className="fab fa-pinterest-p"></i></span>
+              <span><i className="fab fa-facebook-f" /></span>
+              <span><i className="fab fa-twitter" /></span>
+              <span><i className="fab fa-pinterest-p" /></span>
             </div>
           </div>
         </div>

@@ -21,9 +21,9 @@ const Dashboard = (props) => {
   const [listErrorMessage, setListErrorMessage] = useState('Fetching Massge Types ...');
 
   const breakPoints = [
-    {width: 1, itemsToShow: 1},
-    {width: 500, itemsToShow: 2}
-  ]
+    { width: 1, itemsToShow: 1 },
+    { width: 500, itemsToShow: 2 },
+  ];
 
   const toggleShowMassageForm = () => {
     setShowMassageForm(!showMassageForm);
@@ -52,7 +52,7 @@ const Dashboard = (props) => {
 
   return (
     <div className="main-section-div">
-      <Sidebar parentProps={props}/>
+      <Sidebar parentProps={props} />
       {
         myUserObj.user ? (
           <div className={styles.dashboard_massages_div}>
@@ -60,13 +60,15 @@ const Dashboard = (props) => {
             <div className={styles.dashboard_heading_div}>
               <h2>MASSAGE TYPES</h2>
               <p>Please select a massage type</p>
-              <div>{''}</div>
+              <div />
             </div>
             {
               myUserObj.user.id === 1
-                ? <button type="button" onClick={toggleShowMassageForm} className={styles.add_massage_button}>
-                  <i className="fas fa-plus"></i>
-                </button>
+                ? (
+                  <button type="button" onClick={toggleShowMassageForm} className={styles.add_massage_button}>
+                    <i className="fas fa-plus" />
+                  </button>
+                )
                 : null
             }
 
@@ -82,17 +84,18 @@ const Dashboard = (props) => {
               }
             </div>
 
-            {/*These are the dashboard massage cards*/}
+            {/* These are the dashboard massage cards */}
             {
               myMassageList.length !== 0
-                ? 
-                <div className={styles.massage_carousel_div}>
-                  <Carousel easing="ease" tiltEasing="ease" breakPoints={breakPoints} pagination={false}>
-                    {myMassageList.map((massage) => (
-                    <MassageCard massageObj={massage} key={massage.id} />
-                  ))}
-                  </Carousel>
-                </div>
+                ? (
+                  <div className={styles.massage_carousel_div}>
+                    <Carousel easing="ease" tiltEasing="ease" breakPoints={breakPoints} pagination={false}>
+                      {myMassageList.map((massage) => (
+                        <MassageCard massageObj={massage} key={massage.id} />
+                      ))}
+                    </Carousel>
+                  </div>
+                )
                 : listErrorMessage
             }
           </div>

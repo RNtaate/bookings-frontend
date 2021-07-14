@@ -26,7 +26,10 @@ const Home = (props) => {
     <div className={styles.home_div}>
       <h1>NORP MASSAGE PARLOR</h1>
 
-      <button type="button" onClick={toggleShowRegForm} className={styles.sign_up_button}>Sign up <i className="fas fa-user-plus"></i></button>
+      <button type="button" onClick={toggleShowRegForm} className={styles.sign_up_button}>
+        Sign up
+        <i className="fas fa-user-plus" />
+      </button>
 
       {/** This is the Sign up form */}
       <div className={styles.hover_form_div} style={{ visibility: showRegForm ? 'visible' : 'hidden', opacity: showRegForm ? 1 : 0 }}>
@@ -41,7 +44,10 @@ const Home = (props) => {
         }
       </div>
 
-      <button type="button" onClick={toggleShowLoginForm}>Login <i className="fas fa-sign-in-alt"></i></button>
+      <button type="button" onClick={toggleShowLoginForm}>
+        Login
+        <i className="fas fa-sign-in-alt" />
+      </button>
 
       {/** This is the login form */}
       <div className={styles.hover_form_div} style={{ visibility: showLoginForm ? 'visible' : 'hidden', opacity: showLoginForm ? 1 : 0 }}>

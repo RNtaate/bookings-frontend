@@ -41,9 +41,8 @@ const MassageDetails = (props) => {
       {
         localMassage.massageData != null ? (
           <div className={`${dashboardStyles.massage_details_div} ${styles.massage_details_div}`}>
-            <div className={styles.massage_image_div} style={{backgroundImage: `url(${localMassage.massageData.massage_image.url})`}}>
-            </div>
-    
+            <div className={styles.massage_image_div} style={{ backgroundImage: `url(${localMassage.massageData.massage_image.url})` }} />
+
             <div className={styles.massage_description_div}>
 
               <div className={styles.massage_desc_content_div}>
@@ -61,22 +60,22 @@ const MassageDetails = (props) => {
 
               <button type="button" onClick={toggleShowAppForm} className={styles.book_appointment_button}>Book an appointment</button>
             </div>
-    
+
             <div className={homeStyles.hover_form_div} style={{ visibility: showAppForm ? 'visible' : 'hidden', opacity: showAppForm ? 1 : 0 }}>
               {
               showAppForm
                 ? (
-                    <AppointmentForm
-                      propsObj={props}
-                      massage={localMassage.massageData}
-                      handleShowAppForm={toggleShowAppForm}
-                    />
+                  <AppointmentForm
+                    propsObj={props}
+                    massage={localMassage.massageData}
+                    handleShowAppForm={toggleShowAppForm}
+                  />
                 ) : null
               }
             </div>
 
-            <Link to='/' className={styles.back_link}><span><i className="fas fa-chevron-left"></i></span></Link>
-    
+            <Link to="/" className={styles.back_link}><span><i className="fas fa-chevron-left" /></span></Link>
+
           </div>
         ) : <p>{localMassage.errorMessage}</p>
       }

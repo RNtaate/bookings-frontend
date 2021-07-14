@@ -54,8 +54,8 @@ const Login = (props) => {
           } else {
             setLoginDetails({ ...loginDetails, errorMessage: 'Network Error!, Please try again later' });
           }
-        }else {
-          setLoginDetails({ ...loginDetails, errorMessage: 'Network Error!, Please try again later' });          
+        } else {
+          setLoginDetails({ ...loginDetails, errorMessage: 'Network Error!, Please try again later' });
         }
       });
   };

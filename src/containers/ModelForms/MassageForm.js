@@ -69,10 +69,14 @@ const MassageForm = (props) => {
         {
           localMassage.createErrors.length > 0
             ? localMassage.createErrors.map((error) => (
-              <li key={localMassage.createErrors.indexOf(error)} className={loginStyler.error_message}>
+              <li
+                key={localMassage.createErrors.indexOf(error)}
+                className={loginStyler.error_message}
+              >
                 {error[0]}
                 {' '}
-                {error[1]}.
+                {error[1]}
+                .
               </li>
             )) : null
         }
