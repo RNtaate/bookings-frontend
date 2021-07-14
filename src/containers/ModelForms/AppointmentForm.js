@@ -7,6 +7,7 @@ import { addUser } from '../../actions/index';
 import { createAppointment, fetchLoggedInStatus } from '../Helpers/FetchMethods';
 import * as loginStyles from '../auth/stylesheets/Login.module.css';
 import * as styles from './stylesheets/AppointmentForm.module.css';
+import loader from '../../assets/loading_1.gif';
 
 const AppointmentForm = (props) => {
   const cities = ['Kampala', 'Arua', 'Gayaza', 'New York', 'Dehli', 'Lagos'];
@@ -25,6 +26,8 @@ const AppointmentForm = (props) => {
 
   const [errorMessage, setErrorMessage] = useState('');
 
+  const [loading, setLoading] = useState(null);
+
   const handleOnChange = (e) => {
     setLocalApt(
       { ...localApt, customerName: myUserObj.user.username, [e.target.name]: e.target.value },
@@ -33,6 +36,8 @@ const AppointmentForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(loader);
+    setErrorMessage('');
 
     const {
       customerName, massageType, massageId, date, city,
@@ -46,10 +51,12 @@ const AppointmentForm = (props) => {
       city,
     })
       .then(() => {
+        setLoading(null);
         setErrorMessage('');
         setLocalApt({ ...localApt, date: '', city: 'Kampala' });
         props.propsObj.history.push('/appointments');
       }).catch(() => {
+        setLoading(null);
         setErrorMessage('Oops!, Something went wrong, check your network and try again.');
       });
   };
@@ -82,6 +89,8 @@ const AppointmentForm = (props) => {
 
         <button type="submit" data-testid="appointmentFormSubmitButton">Book Now</button>
       </form>
+
+      {loading === null ? null : <img src={loading} alt="" />}
     </div>
   );
 };
