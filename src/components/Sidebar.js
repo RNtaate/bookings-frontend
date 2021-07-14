@@ -7,6 +7,7 @@ import { addMassageList, removeUser } from '../actions';
 import { logOutUser } from '../containers/Helpers/FetchMethods';
 import { redirectToHome } from '../containers/Helpers/HelperMethods';
 import logo from '../assets/norp_vespa.png';
+import loader from '../assets/loading_1.gif';
 
 function Sidebar(props) {
   const {
@@ -14,6 +15,8 @@ function Sidebar(props) {
   } = props;
 
   const [logoutErrorMessage, setLogoutErrorMessage] = useState('');
+
+  const [loading, setLoading] = useState(null);
 
   const currentPath = window.location.pathname;
   const pathArray = currentPath.split('/');
@@ -32,11 +35,15 @@ function Sidebar(props) {
   ];
 
   const handleLogout = () => {
+    setLoading(loader);
+    setLogoutErrorMessage('');
     logOutUser()
       .then(() => {
+        setLoading(null);
         logoutCurrentUser();
         redirectToHome(parentProps);
       }).catch(() => {
+        setLoading(null);
         setCurrentMassageList([]);
         setLogoutErrorMessage("Sorry couldn't logout smoothly, Please refresh and try again");
       });
@@ -74,6 +81,7 @@ function Sidebar(props) {
           <i className="fas fa-sign-out-alt" />
         </button>
         <p>{logoutErrorMessage}</p>
+        { loading === null ? null : <img src={loading} alt="" className={styles.loader_img} />}
       </div>
 
       <div className={styles.sidebar_footer_div}>

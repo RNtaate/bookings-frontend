@@ -89,6 +89,19 @@ div.selected {
   margin-left: 10px;
 }
 
+.sidebar_middle_div > p {
+  color: #df4759;
+  font-weight: 600;
+}
+
+.loader_img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
 .sidebar_footer_div {
   position: absolute;
   bottom: 0;
