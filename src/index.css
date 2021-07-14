@@ -22,8 +22,7 @@ button {
 
 /* Styling for react-elastic-carousel element classes below */
 
-.rec.cGKbZh,
-.rec.ehkxHv {
+.rec.rec-arrow {
   border-radius: 0;
 }
 
@@ -37,20 +36,9 @@ button {
   border-bottom-right-radius: 50%;
 }
 
-.rec.cGKbZh:hover:enabled,
-.rec.cGKbZh:focus:enabled {
+.rec.rec-arrow:hover:enabled,
+.rec.rec-arrow:focus:enabled {
   background-color: rgb(150, 191, 18);
   color: #fff;
   box-shadow: 0 0 2px 0 #333;
-}
-
-.rec.ejXxNI {
-  background-color: rgba(150, 191, 18, 0.5);
-  box-shadow: 0 0 1px 3px rgb(150, 191, 18);
-}
-
-.rec.ejXxNI:hover,
-.rec.ejXxNI:focus {
-  cursor: pointer;
-  box-shadow: 0 0 1px 3px rgb(150, 191, 18);
 }
