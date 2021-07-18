@@ -11,7 +11,9 @@ const MassageCard = (props) => {
     <div className={styles.massageCard_div}>
       <Link to={`/massage/${massage.id}`} className={styles.massageCard_link}>
         <div className={styles.massageCard_inner_div}>
-          <div className={styles.massageCard_poster_div} style={{ backgroundImage: `url(${massage.massage_image.url})` }} />
+          <div className={styles.massageCard_poster_div}>
+            <img src={massage.massage_image.url} alt=""/>
+          </div>
           <div className={styles.massageCard_caption_div}>
             <h2>{massage.name}</h2>
             <div className={styles.seperator_div} />

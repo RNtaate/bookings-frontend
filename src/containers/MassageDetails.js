@@ -41,7 +41,9 @@ const MassageDetails = (props) => {
       {
         localMassage.massageData != null ? (
           <div className={`${dashboardStyles.massage_details_div} ${styles.massage_details_div}`}>
-            <div className={styles.massage_image_div} style={{ backgroundImage: `url(${localMassage.massageData.massage_image.url})` }} />
+            <div className={styles.massage_image_div} >
+              <img src={localMassage.massageData.massage_image.url}/>
+            </div>
 
             <div className={styles.massage_description_div}>
 
