@@ -1,5 +1,11 @@
 # Bookings-frontend
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/cbd0a36e-9cac-461e-a80d-772d452a220c/deploy-status)](https://app.netlify.com/sites/norp-parlor/deploys)
+
+![Linters](https://github.com/RNtaate/bookings-frontend/workflows/Linters/badge.svg)
+
+[![GitHub Pull Requests](https://img.shields.io/badge/GitHub-Pull%20Requests-blue)]()
+
 ## Project Description
 
 > This project is a tablet-view layout Single Page Application(SPA) built as the first half of the final capstone in the Microverse technical curriculum.
