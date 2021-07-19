@@ -8,7 +8,7 @@
 
 > This project is a tablet-view `land-scape` layout Single Page Application(SPA) built as the first half of the final capstone in the Microverse technical curriculum.
 
-> It is built to serve as the front-end of the capstone project by fetching data from and submitting data to the back-end project, which project can be found at [this](https://github.com/RNtaate/Bookings-Backend) Github repository.
+> It is built to serve as the front-end of the capstone project by fetching data from and submitting data to the back-end project, which project can be found at [this Github repository](https://github.com/RNtaate/Bookings-Backend).
 
 > It enables the user to sign_up, sign_in, view various massage types, and book an appointment for a massage type of their choosing.
 
