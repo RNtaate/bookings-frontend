@@ -16,7 +16,7 @@
 |Signup Page| Dashboard Page
 |-|-|
 |![](/public/home_screen_1.jpg) | ![](/public/dashboard_screen_1.jpg)
-| __Massage Page__ | __Appointments Page__
+|__Massage Page__ |__Appointments Page__
 |![](/public/massage_screen_1.jpg) | ![](/public/appointment_screen_1.jpg)
 
 
