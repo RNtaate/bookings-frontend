@@ -1,0 +1,44 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.main-section-div {
+  display: flex;
+}
+
+button {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+/* Styling for react-elastic-carousel element classes below */
+
+.rec.rec-arrow {
+  border-radius: 0;
+}
+
+.rec.rec-arrow-right {
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
+.rec.rec-arrow-left {
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+
+.rec.rec-arrow:hover:enabled,
+.rec.rec-arrow:focus:enabled {
+  background-color: rgb(150, 191, 18);
+  color: #fff;
+  box-shadow: 0 0 2px 0 #333;
+}

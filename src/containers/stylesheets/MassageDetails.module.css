@@ -1,0 +1,116 @@
+.massage_details_div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2em;
+}
+
+.massage_image_div {
+  --size: 50%;
+
+  flex: var(--size);
+  width: var(--size);
+  min-width: var(--size);
+  height: 50%;
+  max-height: 50%;
+  margin-right: 2em;
+  background-image: url('../../assets/loading_4.gif');
+  background-size: 40%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.massage_image_div > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.massage_description_div {
+  --descSize: 35%;
+
+  flex: var(--descSize);
+  max-width: var(--descSize);
+  min-width: var(--descSize);
+  min-height: 70%;
+  max-height: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.massage_desc_content_div {
+  display: flex;
+  flex-direction: column;
+}
+
+.massage_desc_content_div > h4 {
+  font-size: 1.5em;
+  font-weight: 600;
+  text-align: end;
+  margin-bottom: 1em;
+  color: #444;
+}
+
+.massage_desc_content_div > p,
+.massage_desc_content_div > span {
+  padding: 10px;
+  color: #444;
+}
+
+.massage_desc_content_div > p,
+.massage_desc_content_div > span.massage_price {
+  background-color: #eee;
+}
+
+.massage_desc_content_div > p {
+  line-height: 20px;
+}
+
+.massage_desc_content_div > span {
+  display: flex;
+  justify-content: space-between;
+}
+
+.book_appointment_button {
+  border: 1px solid rgb(150, 191, 18);
+  color: white;
+  background-color: rgb(150, 191, 18);
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.book_appointment_button:hover {
+  color: rgb(150, 191, 18);
+  background-color: white;
+}
+
+.back_link {
+  text-decoration: none;
+}
+
+.back_link > span {
+  position: fixed;
+  bottom: 10%;
+  left: 20%;
+  background-color: rgb(150, 191, 18);
+  border: 2px solid rgb(150, 191, 18);
+  border-left: none;
+  color: white;
+  width: 1.5em;
+  padding: 10px 15px 10px 0;
+  font-size: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+.back_link > span:hover {
+  color: rgb(150, 191, 18);
+  background-color: white;
+}
