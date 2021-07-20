@@ -79,8 +79,9 @@
   background-color: rgb(150, 191, 18);
   padding: 10px 20px;
   border-radius: 20px;
-  font-weight: 600;
+  font-weight: 800;
   cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 1);
 }
 
 .book_appointment_button:hover {
